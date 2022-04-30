@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+<<<<<<< HEAD
 # Create your models here.
 
 class Event(models.Model):
@@ -51,3 +52,6 @@ class ViewingParty(models.Model):
 
     def __str__(self):
         return f"Viewing party is {self.name}."
+=======
+# Create your models here.
+>>>>>>> 8416e85 (django dotenv)
