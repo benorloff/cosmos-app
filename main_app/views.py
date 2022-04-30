@@ -13,3 +13,6 @@ from .models import Event, ViewingParty, Profile, Photo
 
 # Create your views here.
 
+class EventList(ListView):
+    model = Event
+
