@@ -13,3 +13,17 @@ from .models import Event, ViewingParty, Profile, Photo
 
 # Create your views here.
 
+class EventCreate(LoginRequiredMixin, CreateView):
+    model = Event
+    fields = ['title', 'location', 'event_type', 'start_time', 'end_time', 'description', 'created_by']
+    
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
+class EventUpdate(LoginRequiredMixin, UpdateView):
+    model = Event
+    fields = ['title', 'location', 'event_type', 'start_time', 'end_time', 'description']
+
+
+
