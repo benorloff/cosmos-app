@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Cosmic Events Details</h1>
+
+<p>Title: {{ event.title }}</p>
+<p>Location: {{ event.location }}</p>
+<p>Event Type: {{ event.event_type }}</p>
+<p>Start/End Time: {{ event.start_time }} / {{ event.end_time }} </p>
+<p>Description: {{ event.description }}</p>
+<p>Event Watchers: {{ event.users_watching }}</p>
+<p>Created By: {{ event.created_by }}</p>
+
+<!-- if user is logged in & has created event -->
+{% if user == event.created_by %}
+<a href="{% url 'events_update' event.id %}">Edit</a>
+{% endif %}
+
+{% endblock %}
