@@ -13,6 +13,11 @@ from .models import Event, ViewingParty, Profile, Photo
 
 # Create your views here.
 
+
+class EventDetail(DetailView):
+    model = Event
+    fields =  ['title', 'location', 'event_type', 'start_time', 'end_time', 'description', 'users_watching', 'created_by']
+
 class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
     fields = ['title', 'location', 'event_type', 'start_time', 'end_time', 'description', 'created_by']
@@ -24,6 +29,3 @@ class EventCreate(LoginRequiredMixin, CreateView):
 class EventUpdate(LoginRequiredMixin, UpdateView):
     model = Event
     fields = ['title', 'location', 'event_type', 'start_time', 'end_time', 'description']
-
-
-
