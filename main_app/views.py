@@ -13,6 +13,8 @@ from .models import Event, ViewingParty, Profile, Photo
 
 # Create your views here.
 
+def home(request):
+  return render(request, 'home.html')
 
 class EventDetail(DetailView):
     model = Event
