@@ -16,6 +16,9 @@ from .models import Event, ViewingParty, Profile, Photo
 def home(request):
   return render(request, 'home.html')
 
+class EventList(ListView):
+    model = Event
+
 class EventDetail(DetailView):
     model = Event
     fields =  ['title', 'location', 'event_type', 'start_time', 'end_time', 'description', 'users_watching', 'created_by']
