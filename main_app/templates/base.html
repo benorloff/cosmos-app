@@ -20,7 +20,7 @@
 				<ul class="right">
           {% if user.is_authenticated %}
             <li><a href="{% url 'events_create' %}">Add an Event</a></li>
-            <li><a href="#">View All Events</a></li>
+            <li><a href="{% url 'events_list' %}">View All Events</a></li>
             <li><a href="#">Log Out</a></li>
           
             {% else %}
