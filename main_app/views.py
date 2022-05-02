@@ -35,6 +35,10 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
+@login_required
+def profile(request):
+    return render(request, 'profile.html')
+
 class EventList(ListView):
     model = Event
 
