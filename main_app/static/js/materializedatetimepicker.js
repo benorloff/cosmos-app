@@ -3,8 +3,10 @@ var MaterialDateTimePicker = {
     dateRange: null,
     pickerOptions: null,
     create: function(element){
+        console.log(element)
         this.control = element == undefined? $('#' + localStorage.getItem('element')) : element;
         element = this.control;
+        console.log(element)
         if (this.control.is("input[type='text']"))
         {
             var defaultDate = new Date();
