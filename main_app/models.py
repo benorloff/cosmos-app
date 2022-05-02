@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from datetime import date
 from django.contrib.auth.models import User
 
@@ -10,13 +11,16 @@ class Event(models.Model):
     event_type = models.CharField(max_length=100)
     start_time = models.DateTimeField(auto_now=False, auto_now_add=False)
     end_time = models.DateTimeField(auto_now=False, auto_now_add=False)
-    has_party = models.BooleanField()
+    has_party = models.BooleanField(default=False)
     description = models.CharField(max_length=600)
     users_watching = models.ManyToManyField(User, related_name='users_watching_event')
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='event_created_by_user')
 
     def __str__(self):
         return f"Event is {self.title} in {self.location}."
+
+    def get_absolute_url(self):
+        return reverse('events_detail', kwargs={'event_id': self.id})
     
 class Profile(models.Model):
     photo_url = models.CharField(max_length=255)
