@@ -19,13 +19,16 @@
 				</ul>
 				<ul class="right">
           {% if user.is_authenticated %}
+          
             <li><a href="{% url 'events_create' %}">Add an Event</a></li>
-            <li><a href="#">View All Events</a></li>
+            <li><a href="{% url 'events_list' %}">View All Events</a></li>
             <li><a href="{% url 'account_logout' %}">Log Out</a></li>
           
-            {% else %}
+          {% else %}
+          
             <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
             <li><a href="{% url 'account_login' %}">Log In</a></li>
+          
           {% endif %}
         </ul>
 			</div>
