@@ -12,7 +12,7 @@ import boto3
 from .models import Event, ViewingParty, Profile, Photo
 
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
-BUCKET = 'kit-builder-app'
+BUCKET = 'cosmos-app'
 
 # Create your views here.
 
@@ -69,6 +69,7 @@ def add_photo (request, profile_id):
         url = f"{S3_BASE_URL}{BUCKET}/{key}"
         # we can assign to cat_id or cat (if you have a cat object)
         Photo.objects.create(url=url, profile_id=profile_id)
+        
     except:
         print('An error occurred uploading file to S3')
-    return redirect('detail', profile_id=profile_id)
+    return redirect('profile')
