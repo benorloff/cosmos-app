@@ -20,7 +20,7 @@ class Event(models.Model):
         return f"Event is {self.title} in {self.location}."
 
     def get_absolute_url(self):
-        return reverse('events_detail', kwargs={'event_id': self.id})
+        return reverse('events_detail', kwargs={'pk': self.id})
     
 class Profile(models.Model):
     photo_url = models.CharField(max_length=255, blank=True)

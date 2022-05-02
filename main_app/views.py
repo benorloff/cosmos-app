@@ -65,7 +65,7 @@ class EventDetail(DetailView):
     model = Event
     fields =  ['title', 'location', 'event_type', 'start_time', 'end_time', 'description', 'users_watching', 'created_by']
 
-class EventCreate(CreateView):
+class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
     fields = ['title', 'location', 'event_type', 'start_time', 'end_time', 'description']
     
