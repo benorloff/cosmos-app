@@ -14,6 +14,9 @@ from .forms import UpdateUserForm, UpdateProfileForm
 
 from .models import Event, ViewingParty, Profile, Photo
 
+S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
+BUCKET = 'cosmos-app'
+
 # Create your views here.
 
 def home(request):
@@ -73,3 +76,20 @@ class EventCreate(LoginRequiredMixin, CreateView):
 class EventUpdate(LoginRequiredMixin, UpdateView):
     model = Event
     fields = ['title', 'location', 'event_type', 'start_time', 'end_time', 'description']
+
+def add_photo (request, profile_id):
+  photo_file = request.FILES.get('photo-file', None)
+  if photo_file:
+    s3 = boto3.client('s3')
+    key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+
+    try:
+        s3.upload_fileobj(photo_file, BUCKET, key)
+        # build the full url string
+        url = f"{S3_BASE_URL}{BUCKET}/{key}"
+        # we can assign to cat_id or cat (if you have a cat object)
+        Photo.objects.create(url=url, profile_id=profile_id)
+        
+    except:
+        print('An error occurred uploading file to S3')
+    return redirect('profile')
