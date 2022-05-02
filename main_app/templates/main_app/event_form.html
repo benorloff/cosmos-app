@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% if object %}
+<h1>Edit {{object.title}}</h1>
+{% else %}
+<h1>Add Cosmic Event</h1>
+{% endif %}
+<!-- Leaving the action blank will use the same url that was used in order to get the form -->
+<form action="" method="POST">
+	{% csrf_token %}
+	<table>
+		{{ form.as_table }}
+	</table>
+
+	<input type="submit" value="submit" class="btn" />
+</form>
+
+<script>
+	// const startTimeEl = document.getElementById('id_start_time');
+	// M.Datepicker.init(dateEl, {
+	// 	format: 'yyyy-mm-dd',
+	// 	defaultDate: new Date(),
+	// 	setDefaultDate: true,
+	// 	autoClose: true
+	// })
+
+    // const endTimeEl = document.getElementById('id_end_time');
+	// M.Datepicker.init(dateEl, {
+	// 	format: 'yyyy-mm-dd',
+	// 	defaultDate: new Date(),
+	// 	setDefaultDate: true,
+	// 	autoClose: true
+	// })
+
+	
+</script>
+
+{% endblock content %}
