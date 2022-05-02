@@ -12,8 +12,10 @@
 <p>Created By: {{ event.created_by }}</p>
 
 <!-- if user is logged in & has created event -->
+
+<!-- add edit button below -->
 {% if user == event.created_by %}
-<a href="{% url 'events_update' event.id %}">Edit</a>
+
 {% endif %}
 
 {% endblock %}
