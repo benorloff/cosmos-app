@@ -19,11 +19,11 @@ class Event(models.Model):
         return f"Event is {self.title} in {self.location}."
     
 class Profile(models.Model):
-    photo_url = models.CharField(max_length=255)
-    birthdate = models.DateField(auto_now=False, auto_now_add=False)
-    google_id = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    bio = models.CharField(max_length=500)
+    photo_url = models.CharField(max_length=255, blank=True)
+    birthdate = models.DateField(auto_now=False, auto_now_add=False, null=True)
+    google_id = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=50, blank=True)
+    bio = models.CharField(max_length=500, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
