@@ -1,6 +1,6 @@
 from django import forms
 
-from.django.contrib.auth.models import User
+from django.contrib.auth.models import User
 from .models import Profile
 
 class UpdateUserForm(forms.ModelForm):
@@ -12,9 +12,9 @@ class UpdateUserForm(forms.ModelForm):
         fields = ['username', 'email']
 
 class UpdateProfileForm(forms.ModelForm):
-    bio = forms.CharField(max_length=500)
-    city = forms.CharField(max_length=50)
-    birthdate = forms.DateField(auto_now=False, auto_now_add=False)
+    bio = forms.CharField(label='Bio', max_length=500, required=False)
+    city = forms.CharField(label='City', max_length=50, required=False)
+    birthdate = forms.DateField(label='Birthdate', required=False)
 
     class Meta:
         model = Profile
