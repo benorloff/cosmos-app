@@ -24,7 +24,7 @@ class Profile(models.Model):
     google_id = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     bio = models.CharField(max_length=500)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"This is the profile of {self.user}"
