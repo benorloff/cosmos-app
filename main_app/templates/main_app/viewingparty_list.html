@@ -16,7 +16,7 @@
                     {% if user in party.attendees.all %}
                         <a href="{% url 'parties_remove_attendee' party.id %}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">person_remove</i></a>
                     {% else %}
-                        <a href="{% url 'parties_add_attendee' party.id %}" class="btn-floating halfway-fab waves-effect waves-light blue"><i class="material-icons">person_add</i></a>
+                        <a href="{% url 'parties_add_attendee' party.id %}" class="btn-floating pulse halfway-fab waves-effect waves-light blue"><i class="material-icons">person_add</i></a>
                     {% endif %}
                 </div>
                 <div class="card-content">

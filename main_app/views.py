@@ -79,6 +79,17 @@ class EventUpdate(LoginRequiredMixin, UpdateView):
 
 class PartyList(ListView):
   model = ViewingParty
+  paginate_by = 20
+
+  def get_queryset(self):
+    order = self.request.GET.get('orderby', 'start_date')
+    new_context = ViewingParty.objects.order_by(order)
+    return new_context
+
+  def get_context_data(self, **kwargs):
+    context = super(PartyList, self).get_context_data(**kwargs)
+    context['orderby'] = self.request.GET.get('orderby', 'start_date')
+    return context
 
 class PartyDetail(DetailView):
   model = ViewingParty
