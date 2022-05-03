@@ -115,12 +115,9 @@ def add_photo (request, user_id):
 
     try:
         s3.upload_fileobj(photo_file, BUCKET, key)
-        # build the full url string
         url = f"{S3_BASE_URL}{BUCKET}/{key}"
-        # we can assign to cat_id or cat (if you have a cat object)
         user = User.objects.get(id=user_id)
         profile = Profile.objects.get(id=user.profile.id)
-        event = Event.objects.get(id='1')
         Photo.objects.create(url=url, profile=profile)
         
     except:
