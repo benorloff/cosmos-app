@@ -3,7 +3,6 @@
 
 <h1>Cosmic Events Details</h1>
 {% if user.is_authenticated %}
-
 {% if user in event.users_watching.all %}
 <form method="post" action="{% url 'events_watchlistremove' event.id %}">
     {% csrf_token %}

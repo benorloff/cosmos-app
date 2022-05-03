@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-
+from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
@@ -117,7 +117,7 @@ def add_watchlist (request, event_id):
   except:
     print('error adding user to event')
 
-  return redirect('/events')
+  return redirect('events_detail', pk=event_id)
 
 def remove_watchlist (request, event_id):
   user = User.objects.get(id=request.user.id)
@@ -127,4 +127,4 @@ def remove_watchlist (request, event_id):
   except:
     print('error removing user to event')
   
-  return redirect('/events')
+  return redirect('events_detail', pk=event_id)
