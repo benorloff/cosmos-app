@@ -7,6 +7,11 @@
     {% csrf_token %}
    <button>Add to Watchlist</button>
 </form>
+
+<form method="post" action="{% url 'events_watchlistremove' event.id %}">
+    {% csrf_token %}
+   <button>Remove from Watchlist</button>
+</form>
 {% endif %}
 
 <p>Title: {{ event.title }}</p>

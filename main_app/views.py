@@ -127,4 +127,4 @@ def remove_watchlist (request, event_id):
   except:
     print('error removing user to event')
   
-  return redirect('profile')
+  return redirect('/events')
