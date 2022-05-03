@@ -2,6 +2,11 @@
 {% block content %}
 
 <h1>Cosmic Events Details</h1>
+{% if user.is_authenticated %}
+<form method="post" action="{% url 'add_watchlist' user.id %}">
+   <button>Add to Watchlist</button>
+</form>
+{% endif %}
 
 <p>Title: {{ event.title }}</p>
 <p>Location: {{ event.location }}</p>
