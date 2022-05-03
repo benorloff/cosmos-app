@@ -96,5 +96,5 @@ def add_photo (request, profile_id):
 
 def add_watchlist (request, user_id):
   print('button is working')
-
+  
   return redirect('profile')
