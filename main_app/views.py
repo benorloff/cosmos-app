@@ -118,3 +118,13 @@ def add_watchlist (request, event_id):
     print('error adding user to event')
 
   return redirect('profile')
+
+def remove_watchlist (request, event_id):
+  user = User.objects.get(id=request.user.id)
+  event = Event.objects.get(id=event_id)
+  try:
+    event.users_watching.remove(user)
+  except:
+    print('error removing user to event')
+  
+  return redirect('profile')
