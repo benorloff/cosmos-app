@@ -62,6 +62,7 @@ class EventList(ListView):
     model = Event
 
 class EventDetail(DetailView):
+    greeting = "Hello"
     model = Event
     fields =  ['title', 'location', 'event_type', 'start_time', 'end_time', 'description', 'users_watching', 'created_by']
 
@@ -110,12 +111,12 @@ def add_photo (request, profile_id):
     return redirect('profile')
 
 def add_watchlist (request, event_id):
-  print('button is working')
+  # print('button is working')
   user = User.objects.get(id=request.user.id)
   # print(user)
   event = Event.objects.get(id=event_id)
-  print(user)
-  print(event)
+  # print(user)
+  # print(event)
   try:
     event.users_watching.add(user)
   except:
