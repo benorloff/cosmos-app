@@ -2,5 +2,18 @@
 
 {% block content %}
     <h1>This is the profile page for {{user.username}}</h1>
+    <form method="post" action="{% url 'profile' %}">
+        {% csrf_token %}
+        {{ user_form.as_p}}
+        {{ profile_form.as_p }}
 
+        <input type="submit" class="btn" value="Save Changes">
+    </form>
+
+    <form action="{% url 'add_photo' user.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+        {% csrf_token %}
+        <input type="file" name="photo-file">
+        <br><br>
+        <input type="submit" class="btn" value="Upload Photo">
+    </form>
 {% endblock content %}
