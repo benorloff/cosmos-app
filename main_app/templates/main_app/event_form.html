@@ -12,6 +12,7 @@
 <form action="" method="POST">
 	{% csrf_token %}
 	<table>
+		<!-- <input type="text" id="id_start_time"> -->
 		{{ form.as_table }}
 	</table>
 
@@ -19,23 +20,23 @@
 </form>
 
 <script>
-	// const startTimeEl = document.getElementById('id_start_time');
-	// M.Datepicker.init(dateEl, {
+	// const startDateTimeEl = document.getElementById('id_start_time');
+	// M.Datepicker.init(startDateTimeEl, {
 	// 	format: 'yyyy-mm-dd',
 	// 	defaultDate: new Date(),
 	// 	setDefaultDate: true,
 	// 	autoClose: true
 	// })
 
-    // const endTimeEl = document.getElementById('id_end_time');
-	// M.Datepicker.init(dateEl, {
+    // const endDateTimeEl = document.getElementById('id_end_time');
+	// M.Datepicker.init(endDateTimeEl, {
 	// 	format: 'yyyy-mm-dd',
 	// 	defaultDate: new Date(),
 	// 	setDefaultDate: true,
 	// 	autoClose: true
 	// })
 
-	
+
 </script>
 
 {% endblock content %}

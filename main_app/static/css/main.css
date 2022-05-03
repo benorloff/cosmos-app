@@ -1,0 +1,9 @@
+.card img{
+    width: 100%;
+}
+
+#datetime
+{
+    border-bottom: 1px solid #fff;
+    color: #fff
+}

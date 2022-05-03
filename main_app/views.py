@@ -67,7 +67,7 @@ class EventDetail(DetailView):
 
 class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
-    fields = ['title', 'location', 'event_type', 'start_time', 'end_time', 'description', 'created_by']
+    fields = ['title', 'location', 'event_type', 'start_time', 'end_time', 'description']
     
     def form_valid(self, form):
         form.instance.created_by = self.request.user
