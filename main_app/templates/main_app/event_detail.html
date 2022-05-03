@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
+
+
+
 <h1>Cosmic Events Details</h1>
 {% if user.is_authenticated %}
 {% if user in event.users_watching.all %}
@@ -16,20 +20,108 @@
 {% endif %}
 {% endif %}
 
-<p>Title: {{ event.title }}</p>
-<p>Location: {{ event.location }}</p>
-<p>Event Type: {{ event.event_type }}</p>
-<p>Start Date/Time: {{ event.start_date }} / {{ event.start_time }} </p>
-<p>End Date/Time: {{ event.end_date }} / {{ event.end_time }} </p>
-<p>Description: {{ event.description }}</p>
-<p>Event Watchers: {{ event.users_watching.all|length }}</p>
-<p>Created By: {{ event.created_by }}</p>
+
+
+   
+    <div class="col s12 m6">
+     <a href="{% url 'events_detail' event.id %}">
+      <div class="card large" style="width:auto">
+        <div class="card-image">
+          <img src="https://miro.medium.com/max/1400/1*9IIoxOcIbhMFFKMCI2ncuQ.jpeg" height="200px" style="background-color:black;">
+          <a class="btn-floating halfway-fab waves-effect waves-light red" href="{% url 'events_watchlist' event.id %}"><i class="material-icons">+</i></a>
+        </div>
+        <div class="card-content">
+
+            <span class="card-title">{{ event.title }}</span>
+            <p>Location: {{ event.location }}</p>
+            <p>Event Type: {{ event.event_type }}</p>
+            <p>Start Date/Time: {{ event.start_date }} / {{ event.start_time }} </p>
+            <p>End Date/Time: {{ event.end_date }} / {{ event.end_time }} </p>
+            <p>Description: {{ event.description }}</p>
+            <p>Event Watchers: {{ event.users_watching.all|length }}</p>
+            <p>Created By: {{ event.created_by }}</p>
+        </div>
+    </div>
+  </a>
+
+
+
+<!-- BEGIN CARD -->
+<div class="row">
+   
+    <div class="col s12 m6">
+     <a href="{% url 'events_detail' event.id %}">
+      <div class="card small" style="width:300px">
+        <div class="card-image">
+          <img src="https://miro.medium.com/max/1400/1*9IIoxOcIbhMFFKMCI2ncuQ.jpeg" height="200px" style="background-color:black;">
+          <a class="btn-floating halfway-fab waves-effect waves-light red" href="{% url 'events_watchlist' event.id %}"><i class="material-icons">+</i></a>
+        </div>
+        <div class="card-content">
+            <span class="card-title">{{ event.title }}</span>
+            <p>Location: {{ event.location }}</p>
+            <p>Start Date/Time: {{ event.start_date }} {{ event.start_time }} </p>
+        </div>
+      </div>
+    </a>
+    </div>
+   
+
+
+  <!-- END CARD -->
+<!-- BEGIN CARD -->
+
+   
+    <div class="col s12 m6">
+     <a href="{% url 'events_detail' event.id %}">
+        <div class="card small" style="width:300px">
+            <div class="card-image">
+          <img src="https://miro.medium.com/max/1400/1*9IIoxOcIbhMFFKMCI2ncuQ.jpeg" height="200px" style="background-color:black;">
+          <a class="btn-floating halfway-fab waves-effect waves-light red" href="{% url 'events_watchlist' event.id %}"><i class="material-icons">+</i></a>
+        </div>
+        <div class="card-content">
+            <span class="card-title">{{ event.title }}</span>
+            <p>Location: {{ event.location }}</p>
+            <p>Start Date/Time: {{ event.start_date }} {{ event.start_time }} </p>
+        </div>
+      </div>
+    </a>
+    </div>
+   
+ 
+
+  <!-- END CARD -->
+<!-- BEGIN CARD -->
+
+   
+    <div class="col s12 m6">
+     <a href="{% url 'events_detail' event.id %}">
+      <div class="card small" style="width:300px">
+        <div class="card-image">
+          <img src="https://miro.medium.com/max/1400/1*9IIoxOcIbhMFFKMCI2ncuQ.jpeg" height="200px" style="background-color:black;">
+          <a class="btn-floating halfway-fab waves-effect waves-light red" href="{% url 'events_watchlist' event.id %}"><i class="material-icons">+</i></a>
+        </div>
+        <div class="card-content">
+            <span class="card-title">{{ event.title }}</span>
+            <p>Location: {{ event.location }}</p>
+            <p>Start Date/Time: {{ event.start_date }} {{ event.start_time }} </p>
+        </div>
+      </div>
+    </a>
+    </div>
+   
+  </div>
+
+  <!-- END CARD -->
+
+
 
 <!-- add edit button below -->
 {% if user == event.created_by %}
 <div class="card-action">
     <a href="{% url 'events_update' event.id %}">Edit</a>
 </div>
+
 {% endif %}
 
 {% endblock %}
+
