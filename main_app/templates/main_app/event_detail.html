@@ -15,7 +15,9 @@
 
 <!-- add edit button below -->
 {% if user == event.created_by %}
-
+<div class="card-action">
+    <a href="{% url 'events_update' event.id %}">Edit</a>
+</div>
 {% endif %}
 
 {% endblock %}
