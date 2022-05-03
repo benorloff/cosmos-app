@@ -12,7 +12,7 @@ class Event(models.Model):
     start_date = models.DateField(auto_now=False, auto_now_add=False, null=True)
     start_time = models.TimeField(auto_now=False, auto_now_add=False, null=True)
     end_date = models.DateField(auto_now=False, auto_now_add=False, null=True)   
-    end_time = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
+    end_time = models.TimeField(auto_now=False, auto_now_add=False, null=True)
     has_party = models.BooleanField(default=False)
     description = models.CharField(max_length=600)
     users_watching = models.ManyToManyField(User, related_name='users_watching_event')
