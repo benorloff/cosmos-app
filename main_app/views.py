@@ -12,7 +12,7 @@ import boto3
 
 from .forms import UpdateUserForm, UpdateProfileForm
 
-from .models import Event, ViewingParty, Profile, Photo
+from .models import Event, ViewingParty, Profile, Photo, User
 
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'cosmos-app'
@@ -111,9 +111,14 @@ def add_photo (request, profile_id):
 
 def add_watchlist (request, event_id):
   print('button is working')
-  user = request.user.id
-  # print(request.user.id)
-  print(event_id)
-
+  user = User.objects.get(id=request.user.id)
+  # print(user)
+  event = Event.objects.get(id=event_id)
+  print(user)
+  print(event)
+  try:
+    event.users_watching.add(user)
+  except:
+    print('error adding user to event')
 
   return redirect('profile')
