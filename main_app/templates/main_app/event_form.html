@@ -20,21 +20,33 @@
 </form>
 
 <script>
-	// const startDateTimeEl = document.getElementById('id_start_time');
-	// M.Datepicker.init(startDateTimeEl, {
-	// 	format: 'yyyy-mm-dd',
-	// 	defaultDate: new Date(),
-	// 	setDefaultDate: true,
-	// 	autoClose: true
-	// })
+	const startDateEl = document.getElementById('id_start_date');
+	M.Datepicker.init(startDateEl, {
+		format: 'yyyy-mm-dd',
+		defaultDate: new Date(),
+		setDefaultDate: true,
+		autoClose: true
+	})
 
-    // const endDateTimeEl = document.getElementById('id_end_time');
-	// M.Datepicker.init(endDateTimeEl, {
-	// 	format: 'yyyy-mm-dd',
-	// 	defaultDate: new Date(),
-	// 	setDefaultDate: true,
-	// 	autoClose: true
-	// })
+    const endDateEl = document.getElementById('id_end_date');
+	M.Datepicker.init(endDateEl, {
+		format: 'yyyy-mm-dd',
+		defaultDate: new Date(),
+		setDefaultDate: true,
+		autoClose: true
+	})
+
+	const startTimeEl = document.getElementById('id_start_time');
+	M.Timepicker.init(startTimeEl, {
+		autoClose: true,
+		twelveHour: false
+	})
+
+    const endTimeEl = document.getElementById('id_end_time');
+	M.Timepicker.init(endTimeEl, {
+		autoClose: true,
+		twelveHour: false
+	})
 
 
 </script>

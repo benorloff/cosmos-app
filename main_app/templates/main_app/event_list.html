@@ -11,7 +11,8 @@
             <p>Title: {{ event.title }}</p>
             <p>Location: {{ event.location }}</p>
             <p>Event Type: {{ event.event_type }}</p>
-            <p>Start/End Time: {{ event.start_time }} / {{ event.end_time }} </p>
+            <p>Start Date/Time: {{ event.start_date }} {{ event.start_time }} </p>
+            <p>End Date/Time: {{ event.end_date }} {{ event.end_time }} </p>
             <p>Description: {{ event.description }}</p>
             <p>Event Watchers: {{ event.users_watching.all|length }}</p>
             <p>Created By: {{ event.created_by }}</p>            

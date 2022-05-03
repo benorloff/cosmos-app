@@ -14,5 +14,6 @@ urlpatterns = [
     path('parties/', views.PartyList.as_view(), name='parties_list'),
     path('parties/create/', views.PartyCreate.as_view(), name='parties_create'),
     path('parties/<int:pk>/', views.PartyDetail.as_view(), name='parties_detail'),
+    path('parties/<int:pk>/update/', views.PartyUpdate.as_view(), name='parties_update'),
     # path('events/<int:pk>/update/', views.EventUpdate.as_view(), name='events_update'),
 ]
