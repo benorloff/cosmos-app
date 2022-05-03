@@ -9,11 +9,11 @@
      <a href="{% url 'events_detail' event.id %}">
       <div class="card">
         <div class="card-image">
-          <img src="" height="200px" style="background-color:black;">
-          <span class="card-title">{{ event.title }}</span>
-          <a class="btn-floating halfway-fab waves-effect waves-light red" href="{% url 'events_watchlist' event.id %}"><i class="material-icons">visibililty</i></a>
+          <img src="https://miro.medium.com/max/1400/1*9IIoxOcIbhMFFKMCI2ncuQ.jpeg" height="200px" style="background-color:black;">
+          <a class="btn-floating halfway-fab waves-effect waves-light red" href="{% url 'events_watchlist' event.id %}"><i class="material-icons">+</i></a>
         </div>
         <div class="card-content">
+            <span class="card-title">{{ event.title }}</span>
             <p>Location: {{ event.location }}</p>
             <p>Start Date/Time: {{ event.start_date }} {{ event.start_time }} </p>
         </div>
