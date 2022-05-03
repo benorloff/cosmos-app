@@ -8,12 +8,13 @@
     <div class="card">
         <div class="card-content">
             <span class="card-title">{{ event.name }}</span>
-                <p>Created By: {{ event.created_by }}</p>
-                <p>Location: {{ event.location }}</p>
-                <p>Users Watching: {{ event.users_watching|length }} </p>
-                <p>Event Type: {{ event.event_type }}</p>
-                <p>Start: {{ event.start_time }}</p>
-                <p>Ends: {{ event.end_time }} </p>
+            <p>Title: {{ event.title }}</p>
+            <p>Location: {{ event.location }}</p>
+            <p>Event Type: {{ event.event_type }}</p>
+            <p>Start/End Time: {{ event.start_time }} / {{ event.end_time }} </p>
+            <p>Description: {{ event.description }}</p>
+            <p>Event Watchers: {{ event.users_watching }}</p>
+            <p>Created By: {{ event.created_by }}</p>            
         </div>
     </div>
 </a>
