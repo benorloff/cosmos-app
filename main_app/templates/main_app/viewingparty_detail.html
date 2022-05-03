@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Viewing Party Details</h1>
+{% comment %} {% if user.is_authenticated %}
+<form method="post" action="{% url 'events_watchlist' user.id %}">
+    {% csrf_token %}
+   <button>Add to Watchlist</button>
+</form>
+{% endif %} {% endcomment %}
+
+<p>Name: {{ viewingparty.name }}</p>
+<p>Description: {{ viewingparty.description }}</p>
+<p>Location: {{ viewingparty.party_location }}</p>
+<p>Start Date/Time: {{ viewingparty.start_date }} / {{ viewingparty.start_time }} </p>
+<p>End Date/Time: {{ viewingparty.end_date }} / {{ viewingparty.end_time }} </p>
+<p>Created By: {{ viewingparty.user }}</p>
+
+<!-- add edit button below -->
+{% if user == viewingparty.user %}
+<div class="card-action">
+    <a href="{% url 'parties_update' viewingparty.id %}">Edit</a>
+</div>
+{% endif %}
+
+{% endblock %}

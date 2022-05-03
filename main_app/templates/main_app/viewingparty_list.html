@@ -4,18 +4,15 @@
 
 <h1>Viewing Party List</h1>
 
-{% for party in parties_list %}
-<a href="{% url 'parties_detail' parties.id %}">
+{% for party in viewingparty_list %}
     <div class="card">
         <div class="card-content">
-            <span class="card-title">{{ party.name }}</span>
+            <span class="card-title"><a href="{% url 'parties_detail' party.id %}">{{ party.name }}</a></span>
                 <p>Location: {{ party.party_location }}</p>
                 <p>Start: {{ party.start_time }}</p>
                 <p>Ends: {{ party.end_time }} </p>
-                <p>Created by: {{ party.user.username }} </p>
         </div>
     </div>
-</a>
 {% endfor %}
 
 {% endblock %}

@@ -49,10 +49,13 @@ class ViewingParty(models.Model):
     start_date = models.DateField(auto_now=False, auto_now_add=False, null=True)
     start_time = models.TimeField(auto_now=False, auto_now_add=False, null=True)
     end_date = models.DateField(auto_now=False, auto_now_add=False, null=True)   
-    end_time = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
+    end_time = models.TimeField(auto_now=False, auto_now_add=False, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='party_created_by_user')
     description = models.CharField(max_length=500)
     attendees = models.ManyToManyField(User, related_name='party_attendees')
 
     def __str__(self):
         return f"Viewing party is {self.name}."
+
+    def get_absolute_url(self):
+        return reverse('parties_detail', kwargs={'pk': self.id})

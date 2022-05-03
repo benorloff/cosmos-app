@@ -92,6 +92,10 @@ class PartyCreate(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
+class PartyUpdate(LoginRequiredMixin, UpdateView):
+  model = ViewingParty
+  fields = ['name', 'party_location', 'start_date', 'start_time', 'end_date', 'end_time', 'description']
+
 def add_photo (request, profile_id):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
