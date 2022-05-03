@@ -4,15 +4,31 @@
 
 <h1>Viewing Party List</h1>
 
-{% for party in viewingparty_list %}
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title"><a href="{% url 'parties_detail' party.id %}">{{ party.name }}</a></span>
-                <p>Location: {{ party.party_location }}</p>
-                <p>Start: {{ party.start_time }}</p>
-                <p>Ends: {{ party.end_time }} </p>
-        </div>
+<div class="row">
+    {% for party in viewingparty_list %}
+
+    <div class="col s12 m6 l4">
+        <a href="{% url 'parties_detail' party.id %}">
+            <div class="card z-depth-2">
+                <div class="card-image">
+                    <img src="" height="200px" style="background-color: black;">
+                    <span class="card-title">{{ party.name }}</span>
+                    {% if user in party.attendees.all %}
+                        <a href="{% url 'parties_remove_attendee' party.id %}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">person_remove</i></a>
+                    {% else %}
+                        <a href="{% url 'parties_add_attendee' party.id %}" class="btn-floating halfway-fab waves-effect waves-light blue"><i class="material-icons">person_add</i></a>
+                    {% endif %}
+                </div>
+                <div class="card-content">
+                    <p><i class="tiny material-icons">place</i> {{ party.party_location }}</p>
+                    <p><i class="tiny material-icons">event</i> {{ party.start_date }} @ {{ party.start_time }}</p>
+                    <p><i class="tiny material-icons">group</i> {{ party.attendees.all|length}} Attending</p>
+                </div>
+            </div>
+        </a>
     </div>
-{% endfor %}
+
+    {% endfor %}
+</div>
 
 {% endblock %}
