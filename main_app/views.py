@@ -77,6 +77,21 @@ class EventUpdate(LoginRequiredMixin, UpdateView):
     model = Event
     fields = ['title', 'location', 'event_type', 'start_time', 'end_time', 'description']
 
+class PartyList(ListView):
+  model = ViewingParty
+
+class PartyDetail(DetailView):
+  model = ViewingParty
+  fields = '__all__'
+
+class PartyCreate(LoginRequiredMixin, CreateView):
+  model = ViewingParty
+  fields = ['name', 'party_location', 'start_time', 'end_time', 'description']
+
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
 def add_photo (request, profile_id):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
