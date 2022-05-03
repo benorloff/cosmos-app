@@ -109,7 +109,11 @@ def add_photo (request, profile_id):
         print('An error occurred uploading file to S3')
     return redirect('profile')
 
-def add_watchlist (request, user_id):
+def add_watchlist (request, event_id):
   print('button is working')
-  
+  user = request.user.id
+  # print(request.user.id)
+  print(event_id)
+
+
   return redirect('profile')
