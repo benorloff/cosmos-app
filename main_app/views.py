@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-
+from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
@@ -12,7 +12,7 @@ import boto3
 
 from .forms import UpdateUserForm, UpdateProfileForm
 
-from .models import Event, ViewingParty, Profile, Photo
+from .models import Event, ViewingParty, Profile, Photo, User
 
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'cosmos-app'
@@ -107,13 +107,31 @@ def add_photo (request, profile_id):
         # build the full url string
         url = f"{S3_BASE_URL}{BUCKET}/{key}"
         # we can assign to cat_id or cat (if you have a cat object)
-        Photo.objects.create(url=url, profile_id=profile_id)
+        user = User.objects.get(id=user_id)
+        profile = Profile.objects.get(id=user.profile.id)
+        event = Event.objects.get(id='1')
+        Photo.objects.create(url=url, profile=profile)
         
     except:
         print('An error occurred uploading file to S3')
     return redirect('profile')
 
-def add_watchlist (request, user_id):
-  print('button is working')
+def add_watchlist (request, event_id):
+  user = User.objects.get(id=request.user.id)
+  event = Event.objects.get(id=event_id)
+  try:
+    event.users_watching.add(user)
+  except:
+    print('error adding user to event')
+
+  return redirect('events_detail', pk=event_id)
+
+def remove_watchlist (request, event_id):
+  user = User.objects.get(id=request.user.id)
+  event = Event.objects.get(id=event_id)
+  try:
+    event.users_watching.remove(user)
+  except:
+    print('error removing user to event')
   
-  return redirect('profile')
+  return redirect('events_detail', pk=event_id)

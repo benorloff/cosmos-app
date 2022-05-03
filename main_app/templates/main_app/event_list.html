@@ -14,7 +14,7 @@
             <p>Start Date/Time: {{ event.start_date }} {{ event.start_time }} </p>
             <p>End Date/Time: {{ event.end_date }} {{ event.end_time }} </p>
             <p>Description: {{ event.description }}</p>
-            <p>Event Watchers: {{ event.users_watching }}</p>
+            <p>Event Watchers: {{ event.users_watching.all|length }}</p>
             <p>Created By: {{ event.created_by }}</p>            
         </div>
     </div>
