@@ -93,3 +93,6 @@ def add_photo (request, profile_id):
     except:
         print('An error occurred uploading file to S3')
     return redirect('profile')
+
+def add_watchlist (request, user_id):
+  print('button is working')

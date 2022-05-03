@@ -3,7 +3,8 @@
 
 <h1>Cosmic Events Details</h1>
 {% if user.is_authenticated %}
-<form method="post" action="{% url 'add_watchlist' user.id %}">
+<form method="post" action="{% url 'events_watchlist' user.id %}">
+    {% csrf_token %}
    <button>Add to Watchlist</button>
 </form>
 {% endif %}
