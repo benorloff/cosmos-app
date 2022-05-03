@@ -13,7 +13,7 @@
             <p>Event Type: {{ event.event_type }}</p>
             <p>Start/End Time: {{ event.start_time }} / {{ event.end_time }} </p>
             <p>Description: {{ event.description }}</p>
-            <p>Event Watchers: {{ event.users_watching }}</p>
+            <p>Event Watchers: {{ event.users_watching.all|length }}</p>
             <p>Created By: {{ event.created_by }}</p>            
         </div>
     </div>
