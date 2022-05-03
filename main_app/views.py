@@ -92,7 +92,7 @@ class PartyCreate(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-def add_photo (request, profile_id):
+def add_photo (request, user_id):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
     s3 = boto3.client('s3')
@@ -103,7 +103,10 @@ def add_photo (request, profile_id):
         # build the full url string
         url = f"{S3_BASE_URL}{BUCKET}/{key}"
         # we can assign to cat_id or cat (if you have a cat object)
-        Photo.objects.create(url=url, profile_id=profile_id)
+        user = User.objects.get(id=user_id)
+        profile = Profile.objects.get(id=user.profile.id)
+        event = Event.objects.get(id='1')
+        Photo.objects.create(url=url, profile=profile)
         
     except:
         print('An error occurred uploading file to S3')
