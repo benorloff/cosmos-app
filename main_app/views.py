@@ -96,7 +96,7 @@ class PartyUpdate(LoginRequiredMixin, UpdateView):
   model = ViewingParty
   fields = ['name', 'party_location', 'start_date', 'start_time', 'end_date', 'end_time', 'description']
 
-def add_photo (request, profile_id):
+def add_photo (request, user_id):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
     s3 = boto3.client('s3')
@@ -109,7 +109,6 @@ def add_photo (request, profile_id):
         # we can assign to cat_id or cat (if you have a cat object)
         user = User.objects.get(id=user_id)
         profile = Profile.objects.get(id=user.profile.id)
-        event = Event.objects.get(id='1')
         Photo.objects.create(url=url, profile=profile)
         
     except:
