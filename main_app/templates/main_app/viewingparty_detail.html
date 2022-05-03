@@ -2,18 +2,26 @@
 {% block content %}
 
 <h1>Viewing Party Details</h1>
-{% comment %} {% if user.is_authenticated %}
-<form method="post" action="{% url 'events_watchlist' user.id %}">
+{% if user.is_authenticated %}
+{% if user in viewingparty.attendees.all %}
+<form method="post" action="{% url 'parties_remove_attendee' viewingparty.id %}">
     {% csrf_token %}
-   <button>Add to Watchlist</button>
+   <button>Unattend</button>
 </form>
-{% endif %} {% endcomment %}
+{% else %}
+<form method="post" action="{% url 'parties_add_attendee' viewingparty.id %}">
+    {% csrf_token %}
+   <button>Attend</button>
+</form>
+{% endif %}
+{% endif %}
 
 <p>Name: {{ viewingparty.name }}</p>
 <p>Description: {{ viewingparty.description }}</p>
 <p>Location: {{ viewingparty.party_location }}</p>
 <p>Start Date/Time: {{ viewingparty.start_date }} / {{ viewingparty.start_time }} </p>
 <p>End Date/Time: {{ viewingparty.end_date }} / {{ viewingparty.end_time }} </p>
+<p>Attendees: {{ viewingparty.attendees.all|length }}</p>
 <p>Created By: {{ viewingparty.user }}</p>
 
 <!-- add edit button below -->

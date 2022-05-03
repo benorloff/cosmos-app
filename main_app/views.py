@@ -96,7 +96,7 @@ class PartyUpdate(LoginRequiredMixin, UpdateView):
   model = ViewingParty
   fields = ['name', 'party_location', 'start_date', 'start_time', 'end_date', 'end_time', 'description']
 
-def add_photo (request, profile_id):
+def add_photo (request, user_id):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
     s3 = boto3.client('s3')
@@ -116,6 +116,7 @@ def add_photo (request, profile_id):
         print('An error occurred uploading file to S3')
     return redirect('profile')
 
+@login_required
 def add_watchlist (request, event_id):
   user = User.objects.get(id=request.user.id)
   event = Event.objects.get(id=event_id)
@@ -126,6 +127,7 @@ def add_watchlist (request, event_id):
 
   return redirect('events_detail', pk=event_id)
 
+@login_required
 def remove_watchlist (request, event_id):
   user = User.objects.get(id=request.user.id)
   event = Event.objects.get(id=event_id)
@@ -135,3 +137,27 @@ def remove_watchlist (request, event_id):
     print('error removing user to event')
   
   return redirect('events_detail', pk=event_id)
+
+@login_required
+def add_attendee (request, viewingparty_id):
+  user = User.objects.get(id=request.user.id)
+  party = ViewingParty.objects.get(id=viewingparty_id)
+  try:
+    party.attendees.add(user)
+    party.save()
+  except:
+    print('error adding attendee to viewing party')
+
+  return redirect('parties_detail', pk=viewingparty_id)
+
+@login_required
+def remove_attendee (request, viewingparty_id):
+  user = User.objects.get(id=request.user.id)
+  party = ViewingParty.objects.get(id=viewingparty_id)
+  try:
+    party.attendees.remove(user)
+    party.save()
+  except:
+    print('error removing attendee to viewing party')
+
+  return redirect('parties_detail', pk=viewingparty_id)
