@@ -18,6 +18,15 @@
 {% endif %}
 {% endif %}
 
+{% if user %}
+
+<form method="post" action="{% url 'parties_create' %}">
+  {% csrf_token %}
+ <button>Creating Viewing Party</button>
+</form>
+
+{% endif %}
+
 
 <!-- BEGIN MAIN EVENT CARD -->
 
