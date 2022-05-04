@@ -7,3 +7,9 @@
     border-bottom: 1px solid #fff;
     color: #fff
 }
+
+.item-card{
+    position: relative;
+}
+
+.offset-m1,.item-card{padding-left:0!important;}
