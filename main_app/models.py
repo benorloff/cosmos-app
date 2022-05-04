@@ -53,6 +53,7 @@ class ViewingParty(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='party_created_by_user')
     description = models.CharField(max_length=500)
     attendees = models.ManyToManyField(User, related_name='party_attendees')
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='event_viewing_party')
 
     def __str__(self):
         return f"Viewing party is {self.name}."
