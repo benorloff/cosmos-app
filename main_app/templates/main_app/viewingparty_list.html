@@ -2,7 +2,19 @@
 
 {% block content %}
 
-<h1>Viewing Party List</h1>
+<div class="row valign-wrapper">
+    <div class="col s12 m8">
+        <h1>Viewing Parties</h1>
+    </div>
+    <div class="col s12 m4 right-align">
+        <a class="dropdown-trigger btn" href="#" data-target="filter-dropdown"><span class="material-icons" style="vertical-align:middle; margin-right: 5px;">sort</span>Sort</a>
+        <ul id="filter-dropdown" class="dropdown-content">
+            <li><a href="?orderby=start_date">By Date</a></li>
+            <li><a href="?orderby=attendees">By # of Attendees</a></li>
+        </ul>
+    </div>
+</div>
+
 
 <div class="row">
     {% for party in viewingparty_list %}
@@ -30,5 +42,14 @@
 
     {% endfor %}
 </div>
+
+<script>
+    const filterEl = document.querySelector('.dropdown-trigger');
+    M.Dropdown.init(filterEl, {
+        alignment: 'right',
+        coverTrigger: false,
+        constrainWidth: false
+    });
+</script>
 
 {% endblock %}
