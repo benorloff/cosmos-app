@@ -1,6 +1,7 @@
+from urllib import request
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
-from django.dispatch import receiver
+from django.dispatch import Signal, receiver
 
 from .models import Profile
 
