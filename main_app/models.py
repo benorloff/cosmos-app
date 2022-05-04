@@ -59,3 +59,10 @@ class ViewingParty(models.Model):
 
     def get_absolute_url(self):
         return reverse('parties_detail', kwargs={'pk': self.id})
+
+
+class Task(models.Model):
+    name = models.CharField(max_length=256)
+    description = models.CharField(max_length=256)
+    due_date = models.DateTimeField()
+    is_complete = models.BooleanField(default=False)
