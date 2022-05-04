@@ -78,7 +78,9 @@ def profile(request):
           print('no photo is added')
           return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
-    
+class UserDetail(DetailView):
+  model = User
+  fields = '__all__' 
 
 class EventList(ListView):
     model = Event

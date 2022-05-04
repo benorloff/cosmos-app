@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('profile/', views.profile, name='profile'),
     path('profile/<int:user_id>/add_photo', views.add_photo, name='add_photo'),
+    path('users/<int:pk>/', views.UserDetail.as_view(), name='user_detail'),
     path('events/', views.EventList.as_view(), name='events_list'),
     path('events/create/', views.EventCreate.as_view(), name='events_create'),
     path('events/<int:pk>/', views.EventDetail.as_view(), name='events_detail'),
