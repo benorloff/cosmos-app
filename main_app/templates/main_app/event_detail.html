@@ -43,73 +43,38 @@
   </a>
 
 <!-- END MAIN EVENT CARD -->
-<div class="col s12 offset-m1">
+
+
 <!-- BEGIN VIEWING PARTY CARDS -->
+<hr>
+<div class="col s12 offset-m1">
 <div class="row">
+    <h3>{{ user }}'s Viewing Parties</h3>
+    <!-- add associated viewing parties if statement -->
     <div class="col m4 item-card" >
      <a href="{% url 'events_detail' event.id %}">
+         
       <div class="card small" style="width:300px">
         <div class="card-image">
           <img src="https://miro.medium.com/max/1400/1*9IIoxOcIbhMFFKMCI2ncuQ.jpeg" height="200px" style="background-color:black;">
           <a class="btn-floating halfway-fab waves-effect waves-light red" href="{% url 'events_watchlist' event.id %}"><i class="material-icons">+</i></a>
         </div>
         <div class="card-content">
-            <span class="card-title">{{ event.title }}</span>
-            <p>Location: {{ event.location }}</p>
-            <p>Start Date/Time: {{ event.start_date }} {{ event.start_time }} </p>
+            <span class="card-title">{{ viewingparty.name }}</span>
+            <p>Location: {{ viewingparty.location }}</p>
+            <p>Start Date/Time: {{ viewingparty.start_date }} {{ viewingparty.start_time }} </p>
         </div>
       </div>
+      <!-- else statement here for no viewing parties if user is not attendint parties -->
     </a>
     </div>
    
+
+
+    
 <!-- END CARD -->
-<!-- BEGIN CARD -->
-   
-    <div class="col s12 m6">
-    <div class="col m4 item-card" >
-     <a href="{% url 'events_detail' event.id %}">
-        <div class="card small" style="width:300px">
-            <div class="card-image">
-          <img src="https://miro.medium.com/max/1400/1*9IIoxOcIbhMFFKMCI2ncuQ.jpeg" height="200px" style="background-color:black;">
-          <a class="btn-floating halfway-fab waves-effect waves-light red" href="{% url 'events_watchlist' event.id %}"><i class="material-icons">+</i></a>
-        </div>
-        <div class="card-content">
-            <span class="card-title">{{ event.title }}</span>
-            <p>Location: {{ event.location }}</p>
-            <p>Start Date/Time: {{ event.start_date }} {{ event.start_time }} </p>
-        </div>
-      </div>
-    </a>
-    </div>
-   
 
- 
 
-  <!-- END CARD -->
-<!-- BEGIN CARD -->
-
-   
-    <div class="col s12 m6">
-     <div class="col m4 item-card" ></div>
-     <a href="{% url 'events_detail' event.id %}">
-      <div class="card small" style="width:300px">
-        <div class="card-image">
-          <img src="https://miro.medium.com/max/1400/1*9IIoxOcIbhMFFKMCI2ncuQ.jpeg" height="200px" style="background-color:black;">
-          <a class="btn-floating halfway-fab waves-effect waves-light red" href="{% url 'events_watchlist' event.id %}"><i class="material-icons">+</i></a>
-        </div>
-        <div class="card-content">
-            <span class="card-title">{{ event.title }}</span>
-            <p>Location: {{ event.location }}</p>
-            <p>Start Date/Time: {{ event.start_date }} {{ event.start_time }} </p>
-        </div>
-      </div>
-    </a>
-    </div>
-  </div>
-  <!-- END CARD -->
-  <!-- end container -->
-
-</div>
 
 <!-- add edit button below -->
 {% if user == event.created_by %}
@@ -120,4 +85,6 @@
 {% endif %}
 
 {% endblock %}
+
+
 
