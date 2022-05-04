@@ -82,12 +82,21 @@ class UserDetail(DetailView):
   model = User
   fields = '__all__' 
 
+class UserUpdate(LoginRequiredMixin, UpdateView):
+  model = User
+  fields = ['username', 'email', 'first_name', 'last_name']
+
 class EventList(ListView):
     model = Event
 
 class EventDetail(DetailView):
     model = Event
     fields =  ['title', 'location', 'event_type', 'start_date', 'start_time', 'end_date', 'end_time', 'description', 'users_watching', 'created_by']
+
+    def get_context_data(self, **kwargs):
+      context = super(EventDetail, self).get_context_data(**kwargs)
+      context['parties'] = ViewingParty.objects.filter(event=self.get_object())
+      return context
 
 class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
