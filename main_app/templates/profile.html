@@ -2,6 +2,7 @@
 
 {% block content %}
     <h1>This is the profile page for {{user.username}}</h1>
+    <div><img src="{{ photo_url }}"></div>
     <form method="post" action="{% url 'profile' %}">
         {% csrf_token %}
         {{ user_form.as_p}}
