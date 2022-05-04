@@ -9,18 +9,27 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
 import boto3
+import requests
+import json
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 from .forms import UpdateUserForm, UpdateProfileForm
 
 from .models import Event, ViewingParty, Profile, Photo, User
 
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'cosmos-app'
-
+NASA_API = str(os.getenv('NASA_API'))
 # Create your views here.
 
 def home(request):
-  return render(request, 'home.html')
+    data = requests.get(f'https://api.nasa.gov/planetary/apod?api_key={NASA_API}').text
+    converted_data = json.loads(data)
+    url = converted_data['url']
+
+    return render(request, 'home.html', {'url': url})
 
 def signup(request):
   error_message = ''
