@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models.functions import Lower
 import uuid
 import boto3
 import requests
@@ -104,7 +105,7 @@ class PartyList(ListView):
 
   def get_queryset(self):
     order = self.request.GET.get('orderby', 'start_date')
-    new_context = ViewingParty.objects.order_by(order)
+    new_context = ViewingParty.objects.order_by(Lower(order))
     return new_context
 
   def get_context_data(self, **kwargs):
