@@ -87,6 +87,15 @@ class EventDetail(DetailView):
     model = Event
     fields =  ['title', 'location', 'event_type', 'start_date', 'start_time', 'end_date', 'end_time', 'description', 'users_watching', 'created_by']
 
+    def get_queryset(self):
+        parties = ViewingParty.objects.all(event=self.id)
+        print(parties)
+        return parties
+
+    def get_context_data(self, **kwargs):
+        context = super(EventDetail, self).get_context_data(**kwargs)
+        return context
+
 class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
     fields = ['title', 'location', 'event_type', 'start_date', 'start_time', 'end_date', 'end_time', 'description']
