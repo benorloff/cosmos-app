@@ -2,6 +2,15 @@
 
 {% block content %}
 
+<div id='map' style='width: 800px; height: 300px;'></div>
+<script>
+mapboxgl.accessToken = "{{ mapbox_api }}";
+var map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/streets-v11'
+});
+</script>
+
 <div class="row valign-wrapper">
     <div class="col s12 m8">
         <h1>Viewing Parties</h1>

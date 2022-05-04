@@ -23,13 +23,13 @@ from .models import Event, ViewingParty, Profile, Photo, User
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'cosmos-app'
 NASA_API = str(os.getenv('NASA_API'))
+MAPBOX_API = str(os.getenv('MAPBOX_API'))
 # Create your views here.
 
 def home(request):
     data = requests.get(f'https://api.nasa.gov/planetary/apod?api_key={NASA_API}').text
     converted_data = json.loads(data)
     url = converted_data['url']
-
     return render(request, 'home.html', {'url': url})
 
 def signup(request):
@@ -78,7 +78,13 @@ def profile(request):
           print('no photo is added')
           return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
-    
+class UserDetail(DetailView):
+  model = User
+  fields = '__all__' 
+
+class UserUpdate(LoginRequiredMixin, UpdateView):
+  model = User
+  fields = ['username', 'email', 'first_name', 'last_name']
 
 class EventList(ListView):
     model = Event
@@ -97,6 +103,11 @@ class EventDetail(DetailView):
         return context
 
         
+
+    def get_context_data(self, **kwargs):
+      context = super(EventDetail, self).get_context_data(**kwargs)
+      context['parties'] = ViewingParty.objects.filter(event=self.get_object())
+      return context
 
 class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
@@ -125,6 +136,7 @@ class PartyList(ListView):
   def get_context_data(self, **kwargs):
     context = super(PartyList, self).get_context_data(**kwargs)
     context['orderby'] = self.request.GET.get('orderby', 'start_date')
+    context['mapbox_api'] = MAPBOX_API
     return context
 
 class PartyDetail(DetailView):

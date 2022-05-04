@@ -11,6 +11,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js'></script>
+	<link href='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body>
 	<header class="navbar-fixed">
@@ -25,6 +27,7 @@
             <li><a href="{% url 'events_create' %}">Add an Event</a></li>
             <li><a href="{% url 'events_list' %}">View All Events</a></li>
 			<li><a href="{% url 'parties_list' %}">View All Parties</a></li>
+			<li><a href="{% url 'profile' %}">Profile</a></li>
             <li><a href="{% url 'account_logout' %}">Log Out</a></li>
           
           {% else %}

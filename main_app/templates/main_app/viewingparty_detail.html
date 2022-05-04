@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Viewing Party Details</h1>
+<h1>{{ viewingparty.name }} </h1>
 {% if user.is_authenticated %}
 {% if user in viewingparty.attendees.all %}
 <form method="post" action="{% url 'parties_remove_attendee' viewingparty.id %}">
@@ -16,7 +16,7 @@
 {% endif %}
 {% endif %}
 
-<p>Name: {{ viewingparty.name }}</p>
+<p>Event: <a href="{% url 'events_detail' viewingparty.event.id %}">{{ viewingparty.event }}</a></p>
 <p>Description: {{ viewingparty.description }}</p>
 <p>Location: {{ viewingparty.party_location }}</p>
 <p>Start Date/Time: {{ viewingparty.start_date }} / {{ viewingparty.start_time }} </p>
