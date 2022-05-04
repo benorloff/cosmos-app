@@ -5,17 +5,18 @@
 
 <div class="row">
     {% for event in event_list %}
-    <div class="col s12 m6">
+    <div class="col s12 m6 l4">
      <a href="{% url 'events_detail' event.id %}">
       <div class="card">
         <div class="card-image">
           <img src="https://miro.medium.com/max/1400/1*9IIoxOcIbhMFFKMCI2ncuQ.jpeg" height="200px" style="background-color:black;">
-          <a class="btn-floating halfway-fab waves-effect waves-light red" href="{% url 'events_watchlist' event.id %}"><i class="material-icons">+</i></a>
+          <a class="btn-floating halfway-fab waves-effect waves-light red" href="{% url 'events_watchlist' event.id %}"><i class="material-icons md-24">visibility</i></a>
         </div>
         <div class="card-content">
             <span class="card-title">{{ event.title }}</span>
-            <p>Location: {{ event.location }}</p>
-            <p>Start Date/Time: {{ event.start_date }} {{ event.start_time }} </p>
+            <p><i class="tiny material-icons">place</i> Location: {{ event.location }}</p>
+            <p><i class="tiny material-icons">event</i> Date: {{ event.start_date }} {{ event.start_time }} </p>
+            <p><i class="tiny material-icons">event</i> Date: {{ event.users_watching }} {{ event.users_watching }} </p>
         </div>
       </div>
     </a>
