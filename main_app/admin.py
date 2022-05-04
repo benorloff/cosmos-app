@@ -13,8 +13,22 @@ class ProfileInline(admin.StackedInline):
 class UserAdmin(BaseUserAdmin):
     inlines = (ProfileInline,)
 
+class EventAdmin(ImportExportMixin, admin.ModelAdmin):
+    list_display = [
+        'title', 
+        'location', 
+        'event_type', 
+        'start_date', 
+        'start_time', 
+        'end_date', 
+        'end_time', 
+        'has_party', 
+        'description', 
+        'created_by'
+    ]
+
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
-admin.site.register(Event)
+admin.site.register(Event, EventAdmin)
 admin.site.register(ViewingParty)
 admin.site.register(Photo)
