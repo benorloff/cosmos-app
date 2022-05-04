@@ -91,7 +91,7 @@ class EventList(ListView):
 
 class EventDetail(DetailView):
     model = Event
-    fields =  ['title', 'location', 'event_type', 'start_date', 'start_time', 'end_date', 'end_time', 'best_time', 'description', 'users_watching', 'created_by']
+    fields =  ['title', 'location', 'event_type', 'start_date', 'start_time', 'end_date', 'end_time', 'best_date', 'best_time', 'description', 'users_watching', 'created_by']
 
     def get_context_data(self, **kwargs):
         context = super(EventDetail, self).get_context_data(**kwargs)
@@ -100,7 +100,7 @@ class EventDetail(DetailView):
 
 class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
-    fields = ['title', 'location', 'event_type', 'start_date', 'start_time', 'end_date', 'end_time', 'best_time', 'description']
+    fields = ['title', 'location', 'event_type', 'start_date', 'start_time', 'end_date', 'end_time', 'best_date', 'best_time', 'description']
     
     def form_valid(self, form):
         form.instance.created_by = self.request.user
@@ -108,7 +108,7 @@ class EventCreate(LoginRequiredMixin, CreateView):
 
 class EventUpdate(LoginRequiredMixin, UpdateView):
     model = Event
-    fields = ['title', 'location', 'event_type', 'start_date', 'start_time', 'end_date', 'end_time', 'best_time', 'description']
+    fields = ['title', 'location', 'event_type', 'start_date', 'start_time', 'end_date', 'end_time', 'best_date', 'best_time', 'description']
 
 class PartyList(ListView):
   model = ViewingParty

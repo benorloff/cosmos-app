@@ -13,9 +13,10 @@ class Event(models.Model):
     start_time = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
     end_date = models.DateField(auto_now=False, auto_now_add=False, null=True)   
     end_time = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    best_date = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)   
     best_time = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
     has_party = models.BooleanField(default=False)
-    description = models.CharField(max_length=600)
+    description = models.CharField(max_length=1200)
     users_watching = models.ManyToManyField(User, related_name='users_watching_event')
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='event_created_by_user')
 
