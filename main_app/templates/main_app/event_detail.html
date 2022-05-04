@@ -23,21 +23,32 @@
 
     <div class="col s12 m6">
      <a href="{% url 'events_detail' event.id %}">
-      <div class="card large" style="width:auto">
+      <div class="card x-large" style="width:auto">
         <div class="card-image">
           <img src="https://images.pexels.com/photos/4644812/pexels-photo-4644812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" height="200px" style="background-color:black;">
           <a class="btn-floating halfway-fab waves-effect waves-light red" href="{% url 'events_watchlist' event.id %}"><i class="material-icons">+</i></a>
         </div>
         <div class="card-content">
-
+          <div class="row">
+            <div class="col s6">
             <span class="card-title">{{ event.title }}</span>
-            <p>Location: {{ event.location }}</p>
-            <p>Event Type: {{ event.event_type }}</p>
-            <p>Start Date/Time: {{ event.start_date }} / {{ event.start_time }} </p>
-            <p>End Date/Time: {{ event.end_date }} / {{ event.end_time }} </p>
-            <p>Description: {{ event.description }}</p>
-            <p>Event Watchers: {{ event.users_watching.all|length }}</p>
-            <p>Created By: {{ event.created_by }}</p>
+            <p><i class="tiny material-icons">place</i> Location: {{ event.location }}</p>
+            <p><i class="tiny material-icons">rocket</i> Type: {{ event.event_type }}</p>
+            <p><i class="tiny material-icons">visibility</i> Event Watchers: {{ event.users_watching.all|length }}</p>
+          </div>
+        <br>
+        <br>
+          <div class="col s6">
+            <p><i class="tiny material-icons">event</i> Start Date/Time: {{ event.start_date }} / {{ event.start_time }} </p>
+            <p><i class="tiny material-icons">event</i> End Date/Time: {{ event.end_date }} / {{ event.end_time }} </p>
+            </div>
+            <br>
+            <br>
+          </div>
+            <p><i class="tiny material-icons"></i>{{ event.description }}</p>
+            <br>
+            <p><i class="tiny material-icons">person</i> Created By: {{ event.created_by }}</p>
+        
         </div>
     </div>
   </a>
