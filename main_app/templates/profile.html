@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>This is the profile page for {{user.username}}</h1>
-    <div><img src="{{ photo_url }}"></div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col s2 "><img src="{{ photo_url }}" class="circle responsive-img z-depth-2"></div>
+            <div class="col s10"><h3>This is the profile page for {{user.username}}</h1></div>
+        </div>
+    </div>
     <form method="post" action="{% url 'profile' %}">
         {% csrf_token %}
         {{ user_form.as_p}}
