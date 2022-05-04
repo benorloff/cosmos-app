@@ -105,7 +105,10 @@ class PartyList(ListView):
 
   def get_queryset(self):
     order = self.request.GET.get('orderby', 'start_date')
-    new_context = ViewingParty.objects.order_by(Lower(order))
+    if order == 'name':
+      new_context = ViewingParty.objects.order_by(Lower(order))
+    else:
+      new_context = ViewingParty.objects.order_by(order)
     return new_context
 
   def get_context_data(self, **kwargs):
