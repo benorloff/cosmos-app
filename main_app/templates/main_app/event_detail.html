@@ -41,6 +41,7 @@
           <div class="col s6">
             <p><i class="tiny material-icons">event</i> Start Date/Time: {{ event.start_date }} / {{ event.start_time }} </p>
             <p><i class="tiny material-icons">event</i> End Date/Time: {{ event.end_date }} / {{ event.end_time }} </p>
+            <p><i class="tiny material-icons">event</i>Best Viewing Time: {{ event.best_time }} {{ event.best_time }} </p>
             </div>
             <br>
             <br>
@@ -61,6 +62,7 @@
 <h2>Viewing Parties</h2>
 
 <div class="row">
+
   {% for party in parties %}
 
   <div class="col s12 m6 l4">
@@ -85,13 +87,10 @@
   </div>
 
   {% endfor %}
+  
 </div>
-   
-
-
-    
-<!-- END CARD -->
-
+      
+<!-- END VIEWING PARTY CARDS -->
 
 
 <!-- add edit button below -->
