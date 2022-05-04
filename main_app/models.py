@@ -10,9 +10,9 @@ class Event(models.Model):
     location = models.CharField(max_length=200)
     event_type = models.CharField(max_length=100)
     start_date = models.DateField(auto_now=False, auto_now_add=False, null=True)
-    start_time = models.TimeField(auto_now=False, auto_now_add=False, null=True)
+    start_time = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
     end_date = models.DateField(auto_now=False, auto_now_add=False, null=True)   
-    end_time = models.TimeField(auto_now=False, auto_now_add=False, null=True)
+    end_time = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
     has_party = models.BooleanField(default=False)
     description = models.CharField(max_length=600)
     users_watching = models.ManyToManyField(User, related_name='users_watching_event')
@@ -59,3 +59,10 @@ class ViewingParty(models.Model):
 
     def get_absolute_url(self):
         return reverse('parties_detail', kwargs={'pk': self.id})
+
+
+class Task(models.Model):
+    name = models.CharField(max_length=256)
+    description = models.CharField(max_length=256)
+    due_date = models.DateTimeField()
+    is_complete = models.BooleanField(default=False)

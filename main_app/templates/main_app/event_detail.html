@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
+
 <h1>Cosmic Events Details</h1>
 {% if user.is_authenticated %}
 {% if user in event.users_watching.all %}
@@ -16,20 +18,84 @@
 {% endif %}
 {% endif %}
 
-<p>Title: {{ event.title }}</p>
-<p>Location: {{ event.location }}</p>
-<p>Event Type: {{ event.event_type }}</p>
-<p>Start Date/Time: {{ event.start_date }} / {{ event.start_time }} </p>
-<p>End Date/Time: {{ event.end_date }} / {{ event.end_time }} </p>
-<p>Description: {{ event.description }}</p>
-<p>Event Watchers: {{ event.users_watching.all|length }}</p>
-<p>Created By: {{ event.created_by }}</p>
+
+<!-- BEGIN MAIN EVENT CARD -->
+
+    <div class="col s12 m6">
+     <a href="{% url 'events_detail' event.id %}">
+      <div class="card x-large" style="width:auto">
+        <div class="card-image">
+          <img src="https://images.pexels.com/photos/4644812/pexels-photo-4644812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" height="200px" style="background-color:black;">
+          <a class="btn-floating halfway-fab waves-effect waves-light blue" href="{% url 'events_watchlist' event.id %}"><i class="material-icons">visibility</i></a>
+        </div>
+        <div class="card-content">
+          <div class="row">
+            <div class="col s6">
+            <span class="card-title">{{ event.title }}</span>
+            <p><i class="tiny material-icons">place</i> Location: {{ event.location }}</p>
+            <p><i class="tiny material-icons">rocket</i> Type: {{ event.event_type }}</p>
+            <p><i class="tiny material-icons">visibility</i> Event Watchers: {{ event.users_watching.all|length }}</p>
+          </div>
+        <br>
+        <br>
+          <div class="col s6">
+            <p><i class="tiny material-icons">event</i> Start Date/Time: {{ event.start_date }} / {{ event.start_time }} </p>
+            <p><i class="tiny material-icons">event</i> End Date/Time: {{ event.end_date }} / {{ event.end_time }} </p>
+            </div>
+            <br>
+            <br>
+          </div>
+            <p><i class="tiny material-icons"></i>{{ event.description }}</p>
+            <br>
+            <p><i class="tiny material-icons">person</i> Created By: {{ event.created_by }}</p>
+        
+        </div>
+    </div>
+  </a>
+
+<!-- END MAIN EVENT CARD -->
+
+
+<!-- BEGIN VIEWING PARTY CARDS -->
+
+<div class="col s12 offset-m1">
+<div class="row">
+    <h3>{{ user }}'s Viewing Parties or available viewing parties</h3>
+    <!-- add associated viewing parties if statement -->
+    <div class="col m4 item-card" >
+     <a href="{% url 'events_detail' event.id %}">
+         
+      <div class="card medium" style="width:300px">
+        <div class="card-image">
+          <img src="https://images.pexels.com/photos/4644812/pexels-photo-4644812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" height="200px" style="background-color:black;">
+          <a class="btn-floating halfway-fab waves-effect waves-light blue" href="{% url 'events_watchlist' event.id %}"><i class="material-icons">visibility</i></a>
+        </div>
+        <div class="card-content">
+            <span class="card-title">{{ viewingparty.name }}</span>
+            <p><i class="tiny material-icons">place</i>Location: {{ viewingparty.location }}</p>
+            <p><i class="tiny material-icons">event</i>Start Date/Time: {{ viewingparty.start_date }} {{ viewingparty.start_time }} </p>
+        </div>
+      </div>
+      <!-- else statement here for no viewing parties if user is not attendint parties -->
+    </a>
+    </div>
+   
+
+
+    
+<!-- END CARD -->
+
+
 
 <!-- add edit button below -->
 {% if user == event.created_by %}
 <div class="card-action">
     <a href="{% url 'events_update' event.id %}">Edit</a>
 </div>
+
 {% endif %}
 
 {% endblock %}
+
+
+
