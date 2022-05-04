@@ -69,10 +69,15 @@ def profile(request):
         print(user)
         profile = Profile.objects.get(id=user.profile.id)
         print(profile.id)
-        photo = Photo.objects.get(profile=profile.id)
-        print(photo.profile.id)
-        # Photo.objects.create(url=url, profile=profile)
-    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'photo_url': photo.url, 'photo': photo, 'profile': profile})
+        try:
+          photo = Photo.objects.get(profile=profile.id)
+          print(photo.profile.id)
+          return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'photo_url': photo.url, 'photo': photo, 'profile': profile})
+        except:
+          print('no photo is added')
+          return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+    
 
 class EventList(ListView):
     model = Event
