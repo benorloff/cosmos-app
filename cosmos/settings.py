@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'import_export',
 ]
 
 SITE_ID = 1
@@ -155,6 +156,9 @@ DATETIME_INPUT_FORMATS = [
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+# STATIC_ROOT = BASE_DIR, 'static/'
+
+
 
 LOGIN_REDIRECT_URL = '/'
 

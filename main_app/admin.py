@@ -12,6 +12,18 @@ class ProfileInline(admin.StackedInline):
 class UserAdmin(BaseUserAdmin):
     inlines = (ProfileInline,)
 
+
+
+# from django.contrib import admin
+# from import_export.admin import ImportExportMixin
+# from .models import Task
+# class TaskAdmin(ImportExportMixin, admin.ModelAdmin):
+#     list_display = ['name', 'description', 'due_date', 'is_complete']
+
+# admin.site.register(Task, TaskAdmin)
+
+
+
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(Event)
