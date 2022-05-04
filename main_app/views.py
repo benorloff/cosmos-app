@@ -65,7 +65,14 @@ def profile(request):
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
+        user = User.objects.get(id=request.user.id)
+        print(user)
+        profile = Profile.objects.get(id=user.profile.id)
+        print(profile.id)
+        photo = Photo.objects.get(profile=profile.id)
+        print(photo.url)
+        # Photo.objects.create(url=url, profile=profile)
+    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'photo_url': photo.url})
 
 class EventList(ListView):
     model = Event
