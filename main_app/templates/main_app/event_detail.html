@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
+<div class="container">
 
 <h1>Cosmic Events Details</h1>
 {% if user.is_authenticated %}
@@ -108,7 +108,10 @@
     <a href="{% url 'events_update' event.id %}">Edit</a>
 </div>
 
+
 {% endif %}
+
+</div>
 
 {% endblock %}
 

@@ -20,6 +20,27 @@ const geocoder = new MapboxGeocoder({
 // Add the geocoder to the map
 map.addControl(geocoder);
 
+
+const party_locations = {
+  "type": "FeatureCollection",
+  "features": "{{geo_request_list}}"
+}
+      
+map.on('load', () => {
+  /* Add the data to your map as a layer */
+  map.addLayer({
+    id: 'locations',
+    type: 'circle',
+    /* Add a GeoJSON source containing place coordinates and information. */
+    source: {
+      type: 'geojson',
+      data: party_locations
+    }
+  });
+});
+
+
+
 </script>
 
 <div class="row valign-wrapper">
