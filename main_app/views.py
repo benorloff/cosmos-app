@@ -153,6 +153,7 @@ class PartyList(ListView):
       geo_request = requests.get('https://api.mapbox.com/geocoding/v5/mapbox.places/<str:location>.json')
       geo_request_list.append(geo_request)
     context['party_locations'] = geo_request_list
+    print(geo_request_list)
     return context
 
 class PartyDetail(DetailView):
