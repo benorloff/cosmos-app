@@ -31,7 +31,9 @@ def home(request):
     data = requests.get(f'https://api.nasa.gov/planetary/apod?api_key={NASA_API}').text
     converted_data = json.loads(data)
     url = converted_data['url']
-    return render(request, 'home.html', {'url': url})
+    events = Event.objects.order_by('users_watching')[:6]
+    parties = ViewingParty.objects.order_by('attendees')[:3]
+    return render(request, 'home.html', {'url': url, 'events': events, 'parties': parties})
 
 def signup(request):
   error_message = ''
