@@ -31,9 +31,7 @@ def home(request):
     data = requests.get(f'https://api.nasa.gov/planetary/apod?api_key={NASA_API}').text
     converted_data = json.loads(data)
     url = converted_data['url']
-    events = Event.objects.order_by('users_watching')[:6]
-    parties = ViewingParty.objects.order_by('attendees')[:3]
-    return render(request, 'home.html', {'url': url, 'events': events, 'parties': parties})
+    return render(request, 'home.html', {'url': url})
 
 def signup(request):
   error_message = ''
@@ -149,6 +147,12 @@ class PartyList(ListView):
     context = super(PartyList, self).get_context_data(**kwargs)
     context['orderby'] = self.request.GET.get('orderby', 'start_date')
     context['mapbox_api'] = MAPBOX_API
+    party_locations = ViewingParty.objects.all().values_list('party_location')
+    geo_request_list = []
+    for location in party_locations: 
+      geo_request = requests.get('https://api.mapbox.com/geocoding/v5/mapbox.places/<str:location>.json')
+      geo_request_list.append(geo_request)
+    context['party_locations'] = geo_request_list
     return context
 
 class PartyDetail(DetailView):
@@ -163,18 +167,10 @@ class PartyCreate(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-
-#ONE ATTEMPT
-
-    
-
-#ANOTHER ATTEMPT
-  #  def grab_loc(request):
-  #     if request.method == 'POST':
-  #       loc = request.POST.get('party_location')
-  #       print(loc)
-
-
+  def get_context_data(self, **kwargs):
+    context = super(PartyCreate, self).get_context_data(**kwargs)
+    context['mapbox_api'] = MAPBOX_API
+    return context
 
 class PartyUpdate(LoginRequiredMixin, UpdateView):
   model = ViewingParty
