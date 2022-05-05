@@ -9,7 +9,7 @@
 <h1>Add Cosmic Event</h1>
 {% endif %}
 <!-- Leaving the action blank will use the same url that was used in order to get the form -->
-<form action="" method="POST">
+<form action="{% url 'events_update' event.id %}" method="POST">
 	{% csrf_token %}
 	<table>
 		<!-- <input type="text" id="id_start_time"> -->
