@@ -148,8 +148,12 @@ class EventUpdate(LoginRequiredMixin, UpdateView):
       context = super(EventUpdate, self).get_context_data(**kwargs)
       try:
           photo = Photo.objects.get(event=self.get_object())
-          context['photo'] = photo
-          print(photo)
+          print(photo.event)
+          # if (photo.event == None):
+          #   print('no event')
+          # else:  
+          #   context['photo'] = photo
+          
       except:
         print('no photo')
       return context
@@ -246,18 +250,17 @@ def add_event_photo(request, event_id):
         # print(request.event)
         event = Event.objects.get(id=event_id)
         Photo.objects.create(url=url, event=event)
-        next = request.POST.get('next', '/')
     except:
         print('An error occurred uploading file to S3')
 
     return redirect('events_list')
 
-def delete_event_photo (request):
-  # photo = Photo.objects.get(profile=request.user.profile)
-  # photo.profile = None
+def delete_event_photo (request, event_id):
+  photo = Photo.objects.get(id=event_id)
+  # photo.event = None
   # photo.save()
-  print(request.event)
-  return redirect('users_update')    
+  print(photo.event)
+  return redirect('events_list')    
 
 @login_required
 def add_watchlist (request, event_id):

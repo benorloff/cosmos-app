@@ -8,6 +8,8 @@
 {% else %}
 <h1>Add Cosmic Event</h1>
 {% endif %}
+
+<img src="{{ photo.url }}" class="responsive-img z-depth-2">
 <!-- Leaving the action blank will use the same url that was used in order to get the form -->
 <form action="{% url 'events_update' event.id %}" method="POST">
 	{% csrf_token %}
@@ -28,7 +30,7 @@
 	<input type="submit" class="btn" value="Upload Photo">
 </form>
 
-	<form action="{% url 'delete_event_photo' %}" method="POST">
+	<form action="{% url 'delete_event_photo' event.id %}" method="POST">
 		{% csrf_token %}
 	<input type="submit" class="btn" value="Delete Photo">
 	</form>
