@@ -31,13 +31,26 @@
 <!-- BEGIN MAIN EVENT CARD -->
 
     <div class="col s12 m6">
-     <a href="{% url 'events_detail' event.id %}">
       <div class="card x-large" style="width:auto">
         <div class="card-image">
           <img src="https://images.pexels.com/photos/4644812/pexels-photo-4644812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="background-color:black;height:100%;width:100%;object-fit: contain;">
-          <a class="btn-floating halfway-fab waves-effect waves-light blue" href="{% url 'events_watchlist' event.id %}"><i class="material-icons">visibility</i></a>
-          <span class="card-title"><h3>{{ event.title }}</h3></span>
+          
+          {% if user in event.users_watching.all %}
+          <form method="POST" action="{% url 'events_watchlistremove' event.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <button type="submit" onclick="M.toast({html: 'Event removed from watchlist.'})" class="btn-floating halfway-fab waves-effect waves-light red tooltipped" data-position="left" data-tooltip="Remove from Watchlist"><i class="material-icons md-24">visibility_off</i></button>
+          </form>
+        {% else %}
+          <form method="POST" action="{% url 'events_watchlist' event.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <button type="submit" onclick="M.toast({html: 'Event added to watchlist.'})" class="btn-floating pulse halfway-fab waves-effect waves-light blue tooltipped" data-position="left" data-tooltip="Add to Watchlist"><i class="material-icons md-24">visibility</i></button>
+          </form>
+        {% endif %}          
+        <span class="card-title"><h3>{{ event.title }}</h3></span>
         </div>
+        
         <div class="card-content">
           <div class="row">
             <div class="col s6">
@@ -59,7 +72,6 @@
         
         </div>
     </div>
-  </a>
 
 <!-- END MAIN EVENT CARD -->
 
@@ -84,6 +96,7 @@
                       <a href="{% url 'parties_add_attendee' party.id %}" class="btn-floating pulse halfway-fab waves-effect waves-light blue"><i class="material-icons">person_add</i></a>
                   {% endif %}
               </div>
+              
               <div class="card-content">
                   <p><i class="tiny material-icons">place</i> {{ party.party_location }}</p>
                   <p><i class="tiny material-icons">event</i> {{ party.start_date }} @ {{ party.start_time }}</p>
