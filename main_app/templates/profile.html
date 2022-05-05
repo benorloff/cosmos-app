@@ -10,7 +10,7 @@
 
             <div class="col s4 ">
                 <img src="{{ photo_url }}" class="responsive-img z-depth-2">
-                <form action="{% url 'delete_photo' %}" method="POST">
+                <form action="{% url 'delete_profile_photo' %}" method="POST">
                     {% csrf_token %}
                 <input type="submit" class="btn" value="Delete Photo">
                 </form>
@@ -29,7 +29,7 @@
         </form>
 
     {% if photo.profile.id == Null %}
-        <form action="{% url 'add_photo' user.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+        <form action="{% url 'add_profile_photo' %}" enctype="multipart/form-data" method="POST" class="card-panel">
         {% csrf_token %}
         <input type="file" name="photo-file">
         <br><br>
