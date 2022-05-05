@@ -156,10 +156,8 @@ class PartyCreate(LoginRequiredMixin, CreateView):
     return super().form_valid(form)
 
   def form_loc(request):
-    if request.method == 'POST':
-      loc = request.POST.get('location')
-      print(loc)
-      return loc
+        loc = request.POST.get('party_location')
+        print(loc)
 
 class PartyUpdate(LoginRequiredMixin, UpdateView):
   model = ViewingParty
