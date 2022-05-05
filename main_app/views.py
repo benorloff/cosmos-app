@@ -87,6 +87,13 @@ class UserDetail(DetailView):
     context = super(UserDetail, self).get_context_data(**kwargs)
     context['events'] = Event.objects.filter(users_watching=self.get_object())
     context['parties'] = ViewingParty.objects.filter(attendees=self.get_object())
+    context['profile'] = Profile.objects.get(user=self.get_object())
+    try:
+      profile = Profile.objects.get(user=self.get_object())
+      context['photo'] = Photo.objects.get(profile=profile.id)
+    except:
+      print('no user photo')
+      context['photo'] = False
     return context
 
 class UserUpdate(LoginRequiredMixin, UpdateView):
