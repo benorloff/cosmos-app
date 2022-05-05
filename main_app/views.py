@@ -82,12 +82,14 @@ def profile(request):
 class UserDetail(DetailView):
   model = User
   fields = '__all__'
-
+  
   def get_context_data(self, **kwargs):
     context = super(UserDetail, self).get_context_data(**kwargs)
     context['events'] = Event.objects.filter(users_watching=self.get_object())
     context['parties'] = ViewingParty.objects.filter(attendees=self.get_object())
     context['profile'] = Profile.objects.get(user=self.get_object())
+    print(self.request.user)
+    print(self.object)
     try:
       profile = Profile.objects.get(user=self.get_object())
       context['photo'] = Photo.objects.get(profile=profile.id)
