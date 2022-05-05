@@ -76,13 +76,4 @@ map.addControl(geocoder);
     {% endfor %}
 </div>
 
-<script>
-    const filterEl = document.querySelector('.dropdown-trigger');
-    M.Dropdown.init(filterEl, {
-        alignment: 'right',
-        coverTrigger: false,
-        constrainWidth: false
-    });
-</script>
-
 {% endblock %}
