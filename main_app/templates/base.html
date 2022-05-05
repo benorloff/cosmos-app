@@ -13,6 +13,8 @@
 	<script src='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js'></script>
 	<link href='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css' rel='stylesheet' />
 	<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js'></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
   	<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css' type='text/css' />
 	<link rel="stylesheet" href="{% static 'css/main.css' %}">
 	<script id="search-js" defer src="https://api.mapbox.com/search-js/v1.0.0-beta.7/web.js"></script>
@@ -37,14 +39,14 @@
 				<ul class="right">
                     {% if user.is_authenticated %}
                     <ul id="dropdown" class="dropdown-content">
-                        <li><a href="#">My Profile</a></li> 
-                        <li><a href="#">My Viewing Parties</a></li>
-                        <li><a href="#">My Events</a></li>
+                        <li><a href="{% url 'profile' %}">My Profile</a></li> 
+                        <li><a href="{% url 'users_detail' user.id %}#my-events">My Events</a></li>
+                        <li><a href="{% url 'users_detail' user.id %}#my-parties">My Viewing Parties</a></li>
                         <li><a href="{% url 'account_logout' %}">Log Out</a></li>
                     </ul>
                     <ul class="dds">
-                        <li><a href="{% url 'parties_list' %}">All Viewing Parties</a></li>
-                        <li><a href="{% url 'events_list' %}">All Cosmic Events</a></li>
+                        <li><a href="{% url 'parties_list' %}">Viewing Parties</a></li>
+                        <li><a href="{% url 'events_list' %}">Cosmic Events</a></li>
                         <li><a class="dropdown-trigger" data-target="dropdown">Profile</a></li>
                     </ul>
 
