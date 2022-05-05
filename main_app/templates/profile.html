@@ -26,12 +26,15 @@
         <input type="file" name="photo-file">
         <br><br>
         <input type="submit" class="btn" value="Upload Photo">
-
+        </form>
     {% else %}
-
+        <!-- <form action="{% url 'delete_photo' %}" method="POST" class="btn">
+            {% csrf_token %}
         <input type="submit" class="btn" value="Change Photo">
+        </form> -->
+        
+
     {% endif %}
-    </form>
     </div>
 
 {% endblock content %}

@@ -7,6 +7,7 @@ urlpatterns = [
     path('profile/<int:user_id>/add_photo', views.add_photo, name='add_photo'),
     path('users/<int:pk>/', views.UserDetail.as_view(), name='users_detail'),
     path('users/update/', views.profile, name='users_update'),
+    path('users/update/delete_photo', views.delete_photo, name='delete_photo'),
     path('events/', views.EventList.as_view(), name='events_list'),
     path('events/create/', views.EventCreate.as_view(), name='events_create'),
     path('events/<int:pk>/', views.EventDetail.as_view(), name='events_detail'),
