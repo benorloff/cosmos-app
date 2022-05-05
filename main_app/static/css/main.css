@@ -14,7 +14,25 @@
 
 .offset-m1,.item-card{padding-left:0!important;}
 
+
 .dropdown-content{
     width: max-content !important;
     height:auto !important;
  }
+
+/*----- USER PROFILE -----*/
+
+.profile-banner {
+    position: absolute;
+    left: 0;
+    background-size: cover;
+    width: 100vw;
+    height: 300px;
+}
+
+.profile-avatar {
+    border-radius: 50%;
+    height: 300px;
+    width: 300px;
+    background-color: red;
+}

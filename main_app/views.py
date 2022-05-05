@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
@@ -88,6 +89,20 @@ class UserUpdate(LoginRequiredMixin, UpdateView):
 
 class EventList(ListView):
     model = Event
+    paginate_by = 50
+
+    def get_queryset(self):
+      order = self.request.GET.get('orderby', 'start_date')
+      if order == 'name':
+        new_context = Event.objects.order_by(Lower(order))
+      else:
+        new_context = Event.objects.order_by(order)
+      return new_context
+
+    def get_context_data(self, **kwargs):
+      context = super(EventList, self).get_context_data(**kwargs)
+      context['orderby'] = self.request.GET.get('orderby', 'start_date')
+      return context
 
 class EventDetail(DetailView):
     model = Event
@@ -140,6 +155,12 @@ class PartyCreate(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
+  def grab_loc(request):
+      if request.method == 'POST':
+        loc = request.POST.get('party_location')
+        print(loc)
+
+
 class PartyUpdate(LoginRequiredMixin, UpdateView):
   model = ViewingParty
   fields = ['name', 'party_location', 'start_date', 'start_time', 'end_date', 'end_time', 'description']
@@ -167,10 +188,11 @@ def add_watchlist (request, event_id):
   event = Event.objects.get(id=event_id)
   try:
     event.users_watching.add(user)
+    next = request.POST.get('next', '/')
   except:
     print('error adding user to event')
 
-  return redirect('events_detail', pk=event_id)
+  return HttpResponseRedirect(next)
 
 @login_required
 def remove_watchlist (request, event_id):
@@ -178,10 +200,11 @@ def remove_watchlist (request, event_id):
   event = Event.objects.get(id=event_id)
   try:
     event.users_watching.remove(user)
+    next = request.POST.get('next', '/')
   except:
     print('error removing user to event')
   
-  return redirect('events_detail', pk=event_id)
+  return HttpResponseRedirect(next)
 
 @login_required
 def add_attendee (request, viewingparty_id):
@@ -190,10 +213,11 @@ def add_attendee (request, viewingparty_id):
   try:
     party.attendees.add(user)
     party.save()
+    next = request.POST.get('next', '/')
   except:
     print('error adding attendee to viewing party')
 
-  return redirect('parties_detail', pk=viewingparty_id)
+  return HttpResponseRedirect(next)
 
 @login_required
 def remove_attendee (request, viewingparty_id):
@@ -202,7 +226,8 @@ def remove_attendee (request, viewingparty_id):
   try:
     party.attendees.remove(user)
     party.save()
+    next = request.POST.get('next', '/')
   except:
     print('error removing attendee to viewing party')
 
-  return redirect('parties_detail', pk=viewingparty_id)
+  return HttpResponseRedirect(next)
