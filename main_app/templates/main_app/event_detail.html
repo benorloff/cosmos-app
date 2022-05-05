@@ -34,19 +34,17 @@
      <a href="{% url 'events_detail' event.id %}">
       <div class="card x-large" style="width:auto">
         <div class="card-image">
-          <img src="https://images.pexels.com/photos/4644812/pexels-photo-4644812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" height="200px" style="background-color:black;background-size:contain">
+          <img src="https://images.pexels.com/photos/4644812/pexels-photo-4644812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="background-color:black;height:100%;width:100%;object-fit: contain;">
           <a class="btn-floating halfway-fab waves-effect waves-light blue" href="{% url 'events_watchlist' event.id %}"><i class="material-icons">visibility</i></a>
+          <span class="card-title"><h3>{{ event.title }}</h3></span>
         </div>
         <div class="card-content">
           <div class="row">
             <div class="col s6">
-            <span class="card-title">{{ event.title }}</span>
             <p><i class="tiny material-icons">place</i> Location: {{ event.location }}</p>
             <p><i class="tiny material-icons">rocket</i> Type: {{ event.event_type }}</p>
             <p><i class="tiny material-icons">visibility</i> Event Watchers: {{ event.users_watching.all|length }}</p>
           </div>
-        <br>
-        <br>
           <div class="col s6">
             <p><i class="tiny material-icons">event</i> Start Date/Time: {{ event.start_date }} / {{ event.start_time }} </p>
             <p><i class="tiny material-icons">event</i> End Date/Time: {{ event.end_date }} / {{ event.end_time }} </p>
