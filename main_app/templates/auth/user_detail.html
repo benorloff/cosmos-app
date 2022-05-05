@@ -32,16 +32,27 @@
     </div>
     <div class="col s12 m6 l8">
         <div>
-            <h4 style="margin-top: 75px;">My Events</h4>
-            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
-            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
-            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
-            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
-            <h4 style="margin-top: 75px;">My Parties</h4>
-            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
-            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
-            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
-            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
+            <h4 style="margin-top: 75px;">My Watchlist</h4>
+
+            {% if events %}
+                {% for event in events %}
+                    <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;">{{ event.title }}</div>
+                {% endfor %}
+            {% else %}
+                <p>There aren't add any Cosmic Events in your Watchlist. <a href="{% url 'events_list' %}">Find an event to watch.</a></p>
+            {% endif %}
+
+            {% if user is object %}
+                <h4 style="margin-top: 75px;">My Parties</h4>
+                {% if parties %}
+                    {% for party in parties %}
+                        <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;">{{ party.name }}</div>
+                    {% endfor %}
+                {% else %}
+                    <p>You aren't attending any Viewing Parties. <a href="{% url 'parties_list' %}">Find a Viewing Party to attend.</a></p>
+                {% endif %}
+            {% endif %}
+            
     </div>
 </div>
 
