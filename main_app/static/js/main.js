@@ -7,3 +7,11 @@ $(document).ready(function () {
     M.AutoInit();
     const DateField = MaterialDateTimePicker.create($('#id_end_time'))
 });
+
+$(document).ready(function(){
+    $('.modal').modal();
+    $('.dropdown-trigger').dropdown();
+ });
+
+
+        

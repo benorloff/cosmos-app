@@ -14,3 +14,7 @@
 
 .offset-m1,.item-card{padding-left:0!important;}
 
+.dropdown-content{
+    width: max-content !important;
+    height:auto !important;
+ }
