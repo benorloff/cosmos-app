@@ -19,9 +19,10 @@
 <body>
 	<header class="navbar-fixed">
 		<nav>
-			<div class="nav-wrapper">
+			<div class="nav-wrapper black">
 				<ul>
-					<li><a href="/" class="left brand-logo">&nbsp;&nbsp;Cosmos</a></li>
+					<!-- <li><img src="../static/img/space_icon.png" width="40px"></li> -->
+					<li><a href="/" class="left brand-logo">&nbsp;&nbsp;🚀Cosmos</a></li>
 				</ul>
 				<ul class="right">
                     {% if user.is_authenticated %}
@@ -51,7 +52,7 @@
 		{% block content %}
 		{% endblock %}
 	</main>
-	<footer class="page-footer">
+	<footer class="page-footer black">
 		<div class="right">All Rights Reserved, &copy; 2022 Cosmos &nbsp;</div>
 	</footer>
     <script src="{% static 'js/materializedatetimepicker.js' %}"></script>
