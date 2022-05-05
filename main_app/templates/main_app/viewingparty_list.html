@@ -30,21 +30,33 @@ style: 'mapbox://styles/mapbox/streets-v11'
     {% for party in viewingparty_list %}
 
     <div class="col s12 m6 l4">
-        <a href="{% url 'parties_detail' party.id %}">
+        <a href="{% url 'parties_detail' party.id %}" style="color: black;">
             <div class="card z-depth-2">
                 <div class="card-image">
-                    <img src="" height="200px" style="background-color: black;">
-                    <span class="card-title">{{ party.name }}</span>
+                    <img src="https://images.pexels.com/photos/4644812/pexels-photo-4644812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" height="200px" style="background-color:black;" height="200px" style="background-color: black;">
+                    <div class="chip" style="position: absolute; top: 10px; left: 10px;">
+                        <i class="material-icons tiny">celebration</i>
+                        Party
+                    </div>
                     {% if user in party.attendees.all %}
-                        <a href="{% url 'parties_remove_attendee' party.id %}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">person_remove</i></a>
+                        <form method="POST" action="{% url 'parties_remove_attendee' party.id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <button type="submit" onclick="M.toast({html: 'Removed from Party.'})" class="btn-floating halfway-fab waves-effect waves-light red tooltipped" data-position="left" data-tooltip="Unattend this Party."><i class="material-icons md-24">person_remove</i></button>
+                        </form>
                     {% else %}
-                        <a href="{% url 'parties_add_attendee' party.id %}" class="btn-floating pulse halfway-fab waves-effect waves-light blue"><i class="material-icons">person_add</i></a>
+                        <form method="POST" action="{% url 'parties_add_attendee' party.id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <button type="submit" onclick="M.toast({html: 'Added to Party.'})" class="btn-floating pulse halfway-fab waves-effect waves-light blue tooltipped" data-position="left" data-tooltip="Attend this Party."><i class="material-icons md-24">person_add</i></button>
+                        </form>
                     {% endif %}
                 </div>
                 <div class="card-content">
-                    <p><i class="tiny material-icons">place</i> {{ party.party_location }}</p>
-                    <p><i class="tiny material-icons">event</i> {{ party.start_date }} @ {{ party.start_time }}</p>
-                    <p><i class="tiny material-icons">group</i> {{ party.attendees.all|length}} Attending</p>
+                    <span class="card-title truncate">{{ party.name }}</span>
+                    <p class="truncate"><i class="tiny material-icons" style="margin-right: 5px;">place</i>{{ party.party_location }}</p>
+                    <p class="truncate"><i class="tiny material-icons" style="margin-right: 5px;">event</i>{{ party.start_date }} @ {{ party.start_time }}</p>
+                    <p class="truncate"><i class="tiny material-icons" style="margin-right: 5px;">group</i>{{ party.attendees.all|length}} Attending</p>
                 </div>
             </div>
         </a>

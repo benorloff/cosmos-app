@@ -89,7 +89,7 @@ class UserUpdate(LoginRequiredMixin, UpdateView):
 
 class EventList(ListView):
     model = Event
-    paginate_by = 20
+    paginate_by = 50
 
     def get_queryset(self):
       order = self.request.GET.get('orderby', 'start_date')
@@ -207,10 +207,11 @@ def add_attendee (request, viewingparty_id):
   try:
     party.attendees.add(user)
     party.save()
+    next = request.POST.get('next', '/')
   except:
     print('error adding attendee to viewing party')
 
-  return redirect('parties_detail', pk=viewingparty_id)
+  return HttpResponseRedirect(next)
 
 @login_required
 def remove_attendee (request, viewingparty_id):
@@ -219,7 +220,8 @@ def remove_attendee (request, viewingparty_id):
   try:
     party.attendees.remove(user)
     party.save()
+    next = request.POST.get('next', '/')
   except:
     print('error removing attendee to viewing party')
 
-  return redirect('parties_detail', pk=viewingparty_id)
+  return HttpResponseRedirect(next)
