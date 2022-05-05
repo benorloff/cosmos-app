@@ -211,7 +211,9 @@ def add_photo (request, user_id):
 
 def delete_photo (request):
   photo = Photo.objects.get(profile=request.user.profile)
-  print(photo)
+  photo.profile = None
+  photo.save()
+  return redirect('profile')
 
 @login_required
 def add_watchlist (request, event_id):
