@@ -66,14 +66,12 @@ def profile(request):
     else:
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
-
         user = User.objects.get(id=request.user.id)
-        print(user)
         profile = Profile.objects.get(id=user.profile.id)
-        print(profile.id)
+
         try:
           photo = Photo.objects.get(profile=profile.id)
-          print(photo.profile.id)
+
           return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'photo_url': photo.url, 'photo': photo, 'profile': profile})
         except:
           print('no photo is added')
