@@ -163,14 +163,7 @@ class PartyCreate(LoginRequiredMixin, CreateView):
 
 
 #ONE ATTEMPT
-  # def post(self, request):
-  #   form = PartyCreate(request.POST)
-  #   if form.is_valid():
-  #       text = form.cleaned_data('party_location')
-  #       form = PartyCreate()
 
-    # args = {'form': form, 'text': text}
-    # return render(request, self.template_name, args)
     
 
 #ANOTHER ATTEMPT
