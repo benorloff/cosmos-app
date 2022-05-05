@@ -124,6 +124,12 @@ class EventDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(EventDetail, self).get_context_data(**kwargs)
         context['parties'] = ViewingParty.objects.filter(event=self.get_object())
+        try:
+          photo = Photo.objects.get(event=self.get_object())
+          context['photo'] = photo
+          print(photo)
+        except:
+          print('no photo')
         return context
 
 class EventCreate(LoginRequiredMixin, CreateView):
@@ -214,6 +220,23 @@ def delete_profile_photo (request):
   photo.profile = None
   photo.save()
   return redirect('users_update')
+
+def add_event_photo(request):
+  photo_file = request.FILES.get('photo-file', None)
+  if photo_file:
+    s3 = boto3.client('s3')
+    key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+
+    try:
+        s3.upload_fileobj(photo_file, BUCKET, key)
+        url = f"{S3_BASE_URL}{BUCKET}/{key}"
+        # user = request.user
+        profile = request.user.profile
+        Photo.objects.create(url=url, profile=profile)
+        
+    except:
+        print('An error occurred uploading file to S3')
+    return redirect('events_list')
 
 @login_required
 def add_watchlist (request, event_id):
