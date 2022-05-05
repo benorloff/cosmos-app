@@ -18,14 +18,22 @@
 <div class="row">
     {% for event in event_list %}
       <div class="col s12 m6 l4">
-        <a href="{% url 'events_detail' event.id %}">
+        <a href="{% url 'events_detail' event.id %}" style="color: black;">
           <div class="card">
             <div class="card-image">
               <img src="https://images.pexels.com/photos/4644812/pexels-photo-4644812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" height="200px" style="background-color:black;">
               {% if user in event.users_watching.all %}
-                <a class="btn-floating halfway-fab waves-effect waves-light red tooltipped" data-position="left" data-tooltip="Remove from Watchlist" href="{% url 'events_watchlistremove' event.id %}"><i class="material-icons md-24">visibility_off</i></a>
+                <form method="POST" action="{% url 'events_watchlistremove' event.id %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="next" value="{{ request.path }}">
+                  <button type="submit" onclick="M.toast({html: 'Event removed from watchlist.'})" class="btn-floating halfway-fab waves-effect waves-light red tooltipped" data-position="left" data-tooltip="Remove from Watchlist"><i class="material-icons md-24">visibility_off</i></button>
+                </form>
               {% else %}
-                <a class="btn-floating pulse halfway-fab waves-effect waves-light blue tooltipped" data-position="left" data-tooltip="Add to Watchlist" href="{% url 'events_watchlist' event.id %}"><i class="material-icons md-24">visibility</i></a>
+                <form method="POST" action="{% url 'events_watchlist' event.id %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="next" value="{{ request.path }}">
+                  <button type="submit" onclick="M.toast({html: 'Event added to watchlist.'})" class="btn-floating pulse halfway-fab waves-effect waves-light blue tooltipped" data-position="left" data-tooltip="Add to Watchlist"><i class="material-icons md-24">visibility</i></button>
+                </form>
               {% endif %}
             </div>
             <div class="card-content">

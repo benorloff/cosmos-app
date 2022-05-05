@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
@@ -181,10 +182,11 @@ def add_watchlist (request, event_id):
   event = Event.objects.get(id=event_id)
   try:
     event.users_watching.add(user)
+    next = request.POST.get('next', '/')
   except:
     print('error adding user to event')
 
-  return redirect('events_detail', pk=event_id)
+  return HttpResponseRedirect(next)
 
 @login_required
 def remove_watchlist (request, event_id):
@@ -192,10 +194,11 @@ def remove_watchlist (request, event_id):
   event = Event.objects.get(id=event_id)
   try:
     event.users_watching.remove(user)
+    next = request.POST.get('next', '/')
   except:
     print('error removing user to event')
   
-  return redirect('events_detail', pk=event_id)
+  return HttpResponseRedirect(next)
 
 @login_required
 def add_attendee (request, viewingparty_id):
