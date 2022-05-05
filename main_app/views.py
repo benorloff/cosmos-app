@@ -88,6 +88,20 @@ class UserUpdate(LoginRequiredMixin, UpdateView):
 
 class EventList(ListView):
     model = Event
+    paginate_by = 20
+
+    def get_queryset(self):
+      order = self.request.GET.get('orderby', 'start_date')
+      if order == 'name':
+        new_context = Event.objects.order_by(Lower(order))
+      else:
+        new_context = Event.objects.order_by(order)
+      return new_context
+
+    def get_context_data(self, **kwargs):
+      context = super(EventList, self).get_context_data(**kwargs)
+      context['orderby'] = self.request.GET.get('orderby', 'start_date')
+      return context
 
 class EventDetail(DetailView):
     model = Event
