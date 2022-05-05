@@ -221,7 +221,8 @@ def delete_profile_photo (request):
   photo.save()
   return redirect('users_update')
 
-def add_event_photo(request):
+@login_required
+def add_event_photo(request, event_id):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
     s3 = boto3.client('s3')
@@ -230,12 +231,14 @@ def add_event_photo(request):
     try:
         s3.upload_fileobj(photo_file, BUCKET, key)
         url = f"{S3_BASE_URL}{BUCKET}/{key}"
-        # user = request.user
-        profile = request.user.profile
-        Photo.objects.create(url=url, profile=profile)
         
+        # print(request.event)
+        event = Event.objects.get(id=event_id)
+        Photo.objects.create(url=url, event=event)
+        next = request.POST.get('next', '/')
     except:
         print('An error occurred uploading file to S3')
+
     return redirect('events_list')
 
 @login_required
