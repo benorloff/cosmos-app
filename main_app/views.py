@@ -144,6 +144,17 @@ class EventUpdate(LoginRequiredMixin, UpdateView):
     model = Event
     fields = ['title', 'location', 'event_type', 'start_date', 'start_time', 'end_date', 'end_time', 'best_date', 'best_time', 'description']
 
+    def get_context_data(self, **kwargs):
+      context = super(EventUpdate, self).get_context_data(**kwargs)
+      try:
+          photo = Photo.objects.get(event=self.get_object())
+          context['photo'] = photo
+          print(photo)
+      except:
+        print('no photo')
+      return context
+
+
 class PartyList(ListView):
   model = ViewingParty
   paginate_by = 20
