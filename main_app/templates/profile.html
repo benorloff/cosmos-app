@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
     <div class="container">
         <div class="row">
-            <div class="col s2 "><img src="{{ photo_url }}" class="responsive-img z-depth-2"></div>
-            <div class="col s10"><h3>This is the profile page for {{user.username}}</h1></div>
+            {% if photo == False %}
+            <div class="col s4 "><img src="{% static '/img/space_pic.jpeg' %}" class="responsive-img z-depth-2"></div>
+            {% else %}
+
+            <div class="col s4 ">
+                <img src="{{ photo_url }}" class="responsive-img z-depth-2">
+                <form action="{% url 'delete_profile_photo' %}" method="POST">
+                    {% csrf_token %}
+                <input type="submit" class="btn" value="Delete Photo">
+                </form>
+            </div>
+
+            {% endif %}
+            <div class="col s8"><h3>Update Profile</h3></div>
         </div>
     
         <form method="post" action="{% url 'profile' %}" class="row">
@@ -17,14 +29,14 @@
         </form>
 
     {% if photo.profile.id == Null %}
-    <form action="{% url 'add_photo' user.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+        <form action="{% url 'add_profile_photo' %}" enctype="multipart/form-data" method="POST" class="card-panel">
         {% csrf_token %}
         <input type="file" name="photo-file">
         <br><br>
         <input type="submit" class="btn" value="Upload Photo">
-    </form>
-    </div>
-    {% else %}
-    </div>
+        </form>
+
     {% endif %}
+    </div>
+
 {% endblock content %}

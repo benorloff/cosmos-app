@@ -68,27 +68,34 @@ def profile(request):
     else:
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
-
         user = User.objects.get(id=request.user.id)
-        print(user)
         profile = Profile.objects.get(id=user.profile.id)
-        print(profile.id)
+
         try:
           photo = Photo.objects.get(profile=profile.id)
-          print(photo.profile.id)
+
           return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'photo_url': photo.url, 'photo': photo, 'profile': profile})
         except:
           print('no photo is added')
-          return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
+          return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'photo': False})
 
 class UserDetail(DetailView):
   model = User
   fields = '__all__'
-
+  
   def get_context_data(self, **kwargs):
     context = super(UserDetail, self).get_context_data(**kwargs)
     context['events'] = Event.objects.filter(users_watching=self.get_object())
     context['parties'] = ViewingParty.objects.filter(attendees=self.get_object())
+    context['profile'] = Profile.objects.get(user=self.get_object())
+    print(self.request.user)
+    print(self.object)
+    try:
+      profile = Profile.objects.get(user=self.get_object())
+      context['photo'] = Photo.objects.get(profile=profile.id)
+    except:
+      print('no user photo')
+      context['photo'] = False
     return context
 
 class UserUpdate(LoginRequiredMixin, UpdateView):
@@ -119,6 +126,12 @@ class EventDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(EventDetail, self).get_context_data(**kwargs)
         context['parties'] = ViewingParty.objects.filter(event=self.get_object())
+        try:
+          photo = Photo.objects.get(event=self.get_object())
+          context['photo'] = photo
+          print(photo)
+        except:
+          print('no photo')
         return context
 
 class EventCreate(LoginRequiredMixin, CreateView):
@@ -132,6 +145,21 @@ class EventCreate(LoginRequiredMixin, CreateView):
 class EventUpdate(LoginRequiredMixin, UpdateView):
     model = Event
     fields = ['title', 'location', 'event_type', 'start_date', 'start_time', 'end_date', 'end_time', 'best_date', 'best_time', 'description']
+
+    def get_context_data(self, **kwargs):
+      context = super(EventUpdate, self).get_context_data(**kwargs)
+      try:
+          photo = Photo.objects.get(event=self.get_object())
+          print(photo.event)
+          # if (photo.event == None):
+          #   print('no event')
+          # else:  
+          #   context['photo'] = photo
+          
+      except:
+        print('no photo')
+      return context
+
 
 class PartyList(ListView):
   model = ViewingParty
@@ -180,7 +208,7 @@ class PartyUpdate(LoginRequiredMixin, UpdateView):
   model = ViewingParty
   fields = ['name', 'party_location', 'start_date', 'start_time', 'end_date', 'end_time', 'description']
 
-def add_photo (request, user_id):
+def add_profile_photo (request):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
     s3 = boto3.client('s3')
@@ -189,13 +217,45 @@ def add_photo (request, user_id):
     try:
         s3.upload_fileobj(photo_file, BUCKET, key)
         url = f"{S3_BASE_URL}{BUCKET}/{key}"
-        user = User.objects.get(id=user_id)
-        profile = Profile.objects.get(id=user.profile.id)
+        # user = request.user
+        profile = request.user.profile
         Photo.objects.create(url=url, profile=profile)
         
     except:
         print('An error occurred uploading file to S3')
-    return redirect('profile')
+    return redirect('users_update')
+
+def delete_profile_photo (request):
+  photo = Photo.objects.get(profile=request.user.profile)
+  photo.profile = None
+  photo.save()
+  return redirect('users_update')
+
+@login_required
+def add_event_photo(request, event_id):
+  photo_file = request.FILES.get('photo-file', None)
+  if photo_file:
+    s3 = boto3.client('s3')
+    key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+
+    try:
+        s3.upload_fileobj(photo_file, BUCKET, key)
+        url = f"{S3_BASE_URL}{BUCKET}/{key}"
+        
+        # print(request.event)
+        event = Event.objects.get(id=event_id)
+        Photo.objects.create(url=url, event=event)
+    except:
+        print('An error occurred uploading file to S3')
+
+    return redirect('events_list')
+
+def delete_event_photo (request, event_id):
+  photo = Photo.objects.get(id=event_id)
+  # photo.event = None
+  # photo.save()
+  print(photo.event)
+  return redirect('events_list')    
 
 @login_required
 def add_watchlist (request, event_id):
