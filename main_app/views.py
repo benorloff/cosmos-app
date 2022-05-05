@@ -155,10 +155,24 @@ class PartyCreate(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-  def grab_loc(request):
-      if request.method == 'POST':
-        loc = request.POST.get('party_location')
-        print(loc)
+
+#ONE ATTEMPT
+  # def post(self, request):
+  #   form = PartyCreate(request.POST)
+  #   if form.is_valid():
+  #       text = form.cleaned_data('party_location')
+  #       form = PartyCreate()
+
+    # args = {'form': form, 'text': text}
+    # return render(request, self.template_name, args)
+    
+
+#ANOTHER ATTEMPT
+  #  def grab_loc(request):
+  #     if request.method == 'POST':
+  #       loc = request.POST.get('party_location')
+  #       print(loc)
+
 
 
 class PartyUpdate(LoginRequiredMixin, UpdateView):
