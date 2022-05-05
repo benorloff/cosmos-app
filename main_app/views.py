@@ -207,13 +207,13 @@ def add_profile_photo (request):
         
     except:
         print('An error occurred uploading file to S3')
-    return redirect('profile')
+    return redirect('users_update')
 
 def delete_profile_photo (request):
   photo = Photo.objects.get(profile=request.user.profile)
   photo.profile = None
   photo.save()
-  return redirect('profile')
+  return redirect('users_update')
 
 @login_required
 def add_watchlist (request, event_id):
