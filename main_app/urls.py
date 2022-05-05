@@ -15,6 +15,7 @@ urlpatterns = [
     path('events/<int:event_id>/remove', views.remove_watchlist, name='events_watchlistremove'),
     path('events/<int:pk>/update/', views.EventUpdate.as_view(), name='events_update'),
     path('events/<int:event_id>/update/add_photo', views.add_event_photo, name='add_event_photo'),
+    path('events/<int:event_id>/update/delete_photo', views.delete_event_photo, name='delete_event_photo'),
     path('parties/', views.PartyList.as_view(), name='parties_list'),
     path('parties/create/', views.PartyCreate.as_view(), name='parties_create'),
     path('parties/<int:pk>/', views.PartyDetail.as_view(), name='parties_detail'),

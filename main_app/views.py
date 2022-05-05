@@ -252,6 +252,13 @@ def add_event_photo(request, event_id):
 
     return redirect('events_list')
 
+def delete_event_photo (request):
+  # photo = Photo.objects.get(profile=request.user.profile)
+  # photo.profile = None
+  # photo.save()
+  print(request.event)
+  return redirect('users_update')    
+
 @login_required
 def add_watchlist (request, event_id):
   user = User.objects.get(id=request.user.id)
