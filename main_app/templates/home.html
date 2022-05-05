@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div class="valign-wrapper center-align" style="left: 0; background-image: url({{url}}); background-size: cover; background-position: center; height: 400px;">
+<div class="valign-wrapper center-align" style="left: 0; position: relative; background-image: url({{url}}); background-size: cover; background-position: center; height: 400px;">
     <div class="row">
         <div class="col s12">
             <h2 class="white-text">A centralized place <br> for all things space</h2>
@@ -22,8 +22,8 @@
         </div>
         {% endif %}
     </div>
+    <p class="white-text" style="position: absolute; right:0; bottom:0;">NASA Photo of the Day</p>
 </div>
-
 <div class="row valign-wrapper">
     <div class="col s8">
         <h4>Explore Popular Events</h4>

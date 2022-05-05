@@ -30,8 +30,8 @@
                     {% if user.is_authenticated %}
                     <ul id="dropdown" class="dropdown-content">
                         <li><a href="{% url 'profile' %}">My Profile</a></li> 
-                        <li><a href="{% url 'parties_list' %}">My Viewing Parties</a></li>
-                        <li><a href="{% url 'events_list' %}">My Events</a></li>
+                        <li><a href="{% url 'users_detail' user.id %}#my-events">My Events</a></li>
+                        <li><a href="{% url 'users_detail' user.id %}#my-parties">My Viewing Parties</a></li>
                         <li><a href="{% url 'account_logout' %}">Log Out</a></li>
                     </ul>
                     <ul class="dds">
