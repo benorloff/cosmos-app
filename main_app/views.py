@@ -75,7 +75,7 @@ def profile(request):
           return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'photo_url': photo.url, 'photo': photo, 'profile': profile})
         except:
           print('no photo is added')
-          return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
+          return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'photo': False})
 
 class UserDetail(DetailView):
   model = User
@@ -208,6 +208,10 @@ def add_photo (request, user_id):
     except:
         print('An error occurred uploading file to S3')
     return redirect('profile')
+
+def delete_photo (request):
+  photo = Photo.objects.get(profile=request.user.profile)
+  print(photo)
 
 @login_required
 def add_watchlist (request, event_id):

@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
     <div class="container">
         <div class="row">
-            <div class="col s2 "><img src="{{ photo_url }}" class="responsive-img z-depth-2"></div>
+            {% if photo == False %}
+            <div class="col s4 "><img src="{% static '/img/space_pic.jpeg' %}" class="responsive-img z-depth-2"></div>
+            {% else %}
+            <div class="col s4 "><img src="{{ photo_url }}" class="responsive-img z-depth-2"></div>
+            {% endif %}
             <div class="col s10"><h3>This is the profile page for {{user.username}}</h1></div>
         </div>
     
@@ -17,14 +21,17 @@
         </form>
 
     {% if photo.profile.id == Null %}
-    <form action="{% url 'add_photo' user.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+        <form action="{% url 'add_photo' user.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
         {% csrf_token %}
         <input type="file" name="photo-file">
         <br><br>
         <input type="submit" class="btn" value="Upload Photo">
+
+    {% else %}
+
+        <input type="submit" class="btn" value="Change Photo">
+    {% endif %}
     </form>
     </div>
-    {% else %}
-    </div>
-    {% endif %}
+
 {% endblock content %}
