@@ -3,7 +3,46 @@
 {% load static %}
 
 {% block content %}
+<div style="background-image: url({% static '/img/space_pic.jpeg' %}); width: 100%; height: 250px; background-size: cover; background-position: bottom; position: relative; z-index: -1;">
+    <div style="position: absolute; bottom: 20px; right: 20px;">
+        <button class="btn">Follow</button>
+    </div>
+</div>
 
-<img src="{% static '/img/space_pic.jpeg' %}" style="background-size: cover; width: 100%;">
+<div class="row">
+    <div class="col s12 m6 l4 center-align" style="margin-top: -105px;">
+        <img src="{% static '/img/space_pic.jpeg' %}" class="circle" style="height: 200px; width: 200px; border: 10px solid white;">
+        <div>
+            <h3>{{ object.first_name }} {{ object.last_name }}</h3>
+            <p>@{{ object.username }}</p>
+            <div class="divider"></div>
+            <div class="row" style="padding: 25px 0 25px 0; margin-bottom: 0;">
+                <div class="col s6">
+                    5k Followers
+                </div>
+                <div class="col s6">
+                    User Avatars
+                </div>
+            </div>
+            <div class="divider"></div>
+            {% if object.profile.bio %}
+                {{ object.profile.bio }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="col s12 m6 l8">
+        <div>
+            <h4 style="margin-top: 75px;">My Events</h4>
+            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
+            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
+            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
+            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
+            <h4 style="margin-top: 75px;">My Parties</h4>
+            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
+            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
+            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
+            <div style="width: 100%; background-color: gray; height: 100px; margin-bottom: 20px;"></div>
+    </div>
+</div>
 
 {% endblock content %}
