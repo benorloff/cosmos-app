@@ -4,11 +4,27 @@ from datetime import date
 from django.contrib.auth.models import User
 
 # Create your models here.
+TYPES = (
+    ('L', 'Lunar'),
+    ('S', 'Solar'),
+    ('C', 'Conjunction'),
+    ('P', 'Planetary'),
+    ('M', 'Meteor'),
+    ('C', 'Comet'),
+    ('AD', 'Asteroid'),
+    ('AM', 'Astronomy'),
+    ('SC', 'Spacecraft'),
+)
+
 
 class Event(models.Model):
     title = models.CharField(max_length=100)
     location = models.CharField(max_length=200)
-    event_type = models.CharField(max_length=100)
+    event_type = models.CharField(
+        max_length=2,
+        choices=TYPES,
+        default=TYPES[0][0],
+    )
     start_date = models.DateField(auto_now=False, auto_now_add=False, null=True)
     start_time = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
     end_date = models.DateField(auto_now=False, auto_now_add=False, null=True)   
@@ -55,11 +71,13 @@ class ViewingParty(models.Model):
     def get_absolute_url(self):
         return reverse('parties_detail', kwargs={'pk': self.id})
 
+
+
 class Photo(models.Model):
     url = models.CharField(max_length=255)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True)
     party = models.ForeignKey(ViewingParty, on_delete=models.CASCADE, null=True)
-
+    
     def __str__(self):
         return f"Photo at {self.url}"
