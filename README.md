@@ -32,7 +32,7 @@ The Mapbox API was used to create location search functionality of user-generate
 # Technologies used
 Python3, Django, JavaScript HTML, CSS, PSQL, Materialize
 
-API integrations: MapBox
+API integrations: MapBox, NASA
 
 # Next Steps
 - Our team was ambitious and there were so many possibilities with this app, so there are also several things we wished we could do that we may still implement in the future. Those items include:
