@@ -76,7 +76,6 @@ def profile(request):
 
           return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'photo_url': photo.url, 'photo': photo, 'profile': profile})
         except:
-          print('no photo is added')
           return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'photo': False})
 
 class UserDetail(DetailView):
@@ -88,13 +87,10 @@ class UserDetail(DetailView):
     context['events'] = Event.objects.filter(users_watching=self.get_object())
     context['parties'] = ViewingParty.objects.filter(attendees=self.get_object())
     context['profile'] = Profile.objects.get(user=self.get_object())
-    print(self.request.user)
-    print(self.object)
     try:
       profile = Profile.objects.get(user=self.get_object())
       context['photo'] = Photo.objects.get(profile=profile.id)
     except:
-      print('no user photo')
       context['photo'] = False
     return context
 
@@ -106,12 +102,9 @@ def user_follow(request, user_id):
   follower = User.objects.get(id=request.user.id)
   user = User.objects.get(id=user_id)
   profile = Profile.objects.get(user=user_id)
-  print(follower, 'new function')
-  print(user, 'new function')
-  print(profile, 'new function')
+
   try:
     profile.followers.add(follower)
-    print('follower added successfully')
     next = request.POST.get('next', '/')
   except:
     print('error adding follower')
@@ -127,7 +120,6 @@ def user_unfollow(request, user_id):
   print(profile, 'new function')
   try:
     profile.followers.remove(follower)
-    print('follower removed successfully')
     next = request.POST.get('next', '/')
   except:
     print('error removing follower')
@@ -180,18 +172,15 @@ class EventUpdate(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
       context = super(EventUpdate, self).get_context_data(**kwargs)
       try:
-
           event = Event.objects.get(id=self.get_object().id)
           photo = Photo.objects.get(event=event)
-          # print(self.get_object().id)
-          print(photo)
           if (photo.event == None):
-            print('no event')
+            print('error no event found')
           else:  
             context['photo'] = photo
           
       except:
-        print('no photo')
+        context['photo'] = False
       return context
 
 
@@ -217,7 +206,6 @@ class PartyList(ListView):
       geo_request = requests.get('https://api.mapbox.com/geocoding/v5/mapbox.places/<str:location>.json')
       geo_request_list.append(geo_request)
     context['party_locations'] = geo_request_list
-    print(geo_request_list)
     return context
 
 class PartyDetail(DetailView):
@@ -274,8 +262,7 @@ def add_event_photo(request, event_id):
     try:
         s3.upload_fileobj(photo_file, BUCKET, key)
         url = f"{S3_BASE_URL}{BUCKET}/{key}"
-        
-        # print(request.event)
+
         event = Event.objects.get(id=event_id)
         Photo.objects.create(url=url, event=event)
         event.photo_url = url;
@@ -289,7 +276,6 @@ def delete_event_photo (request, event_id):
   photo = Photo.objects.get(event=event_id)
   photo.event = None
   photo.save()
-  print(photo.event)
   return redirect('events_list')    
 
 @login_required
