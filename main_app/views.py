@@ -152,12 +152,15 @@ class EventUpdate(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
       context = super(EventUpdate, self).get_context_data(**kwargs)
       try:
-          photo = Photo.objects.get(event=self.get_object())
-          print(photo.event)
-          # if (photo.event == None):
-          #   print('no event')
-          # else:  
-          #   context['photo'] = photo
+
+          event = Event.objects.get(id=self.get_object().id)
+          photo = Photo.objects.get(event=event)
+          # print(self.get_object().id)
+          print(photo)
+          if (photo.event == None):
+            print('no event')
+          else:  
+            context['photo'] = photo
           
       except:
         print('no photo')
@@ -253,9 +256,9 @@ def add_event_photo(request, event_id):
     return redirect('events_list')
 
 def delete_event_photo (request, event_id):
-  photo = Photo.objects.get(id=event_id)
-  # photo.event = None
-  # photo.save()
+  photo = Photo.objects.get(event=event_id)
+  photo.event = None
+  photo.save()
   print(photo.event)
   return redirect('events_list')    
 
