@@ -31,7 +31,9 @@ def home(request):
     data = requests.get(f'https://api.nasa.gov/planetary/apod?api_key={NASA_API}').text
     converted_data = json.loads(data)
     url = converted_data['url']
-    return render(request, 'home.html', {'url': url})
+    events = Event.objects.order_by('users_watching')[:6]
+    parties = ViewingParty.objects.order_by('attendees')[:3]
+    return render(request, 'home.html', {'url': url, 'events': events, 'parties': parties})
 
 def signup(request):
   error_message = ''
@@ -100,6 +102,9 @@ class UserUpdate(LoginRequiredMixin, UpdateView):
   model = User
   fields = ['username', 'email', 'first_name', 'last_name']
 
+def user_follow(request):
+  pass
+
 class EventList(ListView):
     model = Event
     paginate_by = 50
@@ -147,12 +152,15 @@ class EventUpdate(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
       context = super(EventUpdate, self).get_context_data(**kwargs)
       try:
-          photo = Photo.objects.get(event=self.get_object())
-          print(photo.event)
-          # if (photo.event == None):
-          #   print('no event')
-          # else:  
-          #   context['photo'] = photo
+
+          event = Event.objects.get(id=self.get_object().id)
+          photo = Photo.objects.get(event=event)
+          # print(self.get_object().id)
+          print(photo)
+          if (photo.event == None):
+            print('no event')
+          else:  
+            context['photo'] = photo
           
       except:
         print('no photo')
@@ -248,9 +256,9 @@ def add_event_photo(request, event_id):
     return redirect('events_list')
 
 def delete_event_photo (request, event_id):
-  photo = Photo.objects.get(id=event_id)
-  # photo.event = None
-  # photo.save()
+  photo = Photo.objects.get(event=event_id)
+  photo.event = None
+  photo.save()
   print(photo.event)
   return redirect('events_list')    
 

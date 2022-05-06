@@ -1,34 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>{{ viewingparty.name }} </h1>
-{% if user.is_authenticated %}
-{% if user in viewingparty.attendees.all %}
-<form method="post" action="{% url 'parties_remove_attendee' viewingparty.id %}">
-    {% csrf_token %}
-    <button class="waves-effect waves-light btn">Unattend</button>
-</form>
-{% else %}
-<form method="post" action="{% url 'parties_add_attendee' viewingparty.id %}">
-    {% csrf_token %}
-   <button class="waves-effect waves-light btn">Attend</button>
-</form>
-{% endif %}
-{% endif %}
 
-<p>Event: <a href="{% url 'events_detail' viewingparty.event.id %}">{{ viewingparty.event }}</a></p>
-<p>Description: {{ viewingparty.description }}</p>
-<p>Location: {{ viewingparty.party_location }}</p>
-<p>Start Date/Time: {{ viewingparty.start_date }} / {{ viewingparty.start_time }} </p>
-<p>End Date/Time: {{ viewingparty.end_date }} / {{ viewingparty.end_time }} </p>
-<p>Attendees: {{ viewingparty.attendees.all|length }}</p>
-<p>Created By: {{ viewingparty.user }}</p>
+<div class="container">
 
-<!-- add edit button below -->
-{% if user == viewingparty.user %}
-<div class="card-action">
-    <a href="{% url 'parties_update' viewingparty.id %}">Edit</a>
+    <h1>{{ viewingparty.name }} </h1>
+    {% if user.is_authenticated %}
+    {% if user in viewingparty.attendees.all %}
+    <form method="post" action="{% url 'parties_remove_attendee' viewingparty.id %}">
+        {% csrf_token %}
+    <button>Unattend</button>
+    </form>
+    {% else %}
+    <form method="post" action="{% url 'parties_add_attendee' viewingparty.id %}">
+        {% csrf_token %}
+    <button>Attend</button>
+    </form>
+    {% endif %}
+    {% endif %}
+
+    <p>Event: <a href="{% url 'events_detail' viewingparty.event.id %}">{{ viewingparty.event }}</a></p>
+    <p>Description: {{ viewingparty.description }}</p>
+    <p>Location: {{ viewingparty.party_location }}</p>
+    <p>Start Date/Time: {{ viewingparty.start_date }} / {{ viewingparty.start_time }} </p>
+    <p>End Date/Time: {{ viewingparty.end_date }} / {{ viewingparty.end_time }} </p>
+    <p>Attendees: {{ viewingparty.attendees.all|length }}</p>
+    <p>Created By: {{ viewingparty.user }}</p>
+
+    <!-- add edit button below -->
+    {% if user == viewingparty.user %}
+    <div class="card-action">
+        <a href="{% url 'parties_update' viewingparty.id %}">Edit</a>
+    </div>
+    {% endif %}
+
 </div>
-{% endif %}
 
 {% endblock %}

@@ -58,7 +58,7 @@
                     <li><a href="{% url 'account_login' %}">Log In</a></li>
                   
                   {% endif %}
-        </ul>
+        		</ul>
 			</div>
 		</nav>
 	</header>
@@ -69,6 +69,18 @@
 	<footer class="page-footer black">
 		<div class="right">All Rights Reserved, &copy; 2022 Cosmos &nbsp;</div>
 	</footer>
+
+	<script>
+		const filterEls = document.querySelectorAll('.dropdown-trigger');
+ 		const tooltipEls = document.querySelectorAll('.tooltipped');
+		M.Dropdown.init(filterEls, {
+			alignment: 'right',
+			coverTrigger: false,
+			constrainWidth: false
+		});
+		M.Tooltip.init(tooltipEls);
+	</script>
+
 </body> 
 </html>
 
