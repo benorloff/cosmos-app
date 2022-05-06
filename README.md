@@ -23,7 +23,7 @@ The Mapbox API was used to create location search functionality of user-generate
 
 # Getting Started 
 - Explore our app here: https://my-cosmos-app.herokuapp.com/
-- Pitch Deck: https://docs.google.com/presentation/d/1I1kE9E-XEYlD4-S6DXJDb0WhiMB4zsStRiXJQQMtKl0/edit#slide=id.gcb9a0b074_1_0
+- Pitch Deck: https://docs.google.com/presentation/d/1I1kE9E-XEYlD4-S6DXJDb0WhiMB4zsStRiXJQQMtKl0/edit?usp=sharing
 - Team Trello Board: https://trello.com/b/Q3fQkJZc/project-3 
 - Initial Wireframes” https://www.figma.com/files/team/1101964647901187578/Cosmos-App 
 - ERD: https://lucid.app/lucidchart/e5544b0d-e3cc-48f9-bfc4-009bba2f6045/edit?page=bBwbCVJP_ym8&invitationId=inv_b2a81aeb-843d-4c91-ac44-3a91e2d5f207# 
