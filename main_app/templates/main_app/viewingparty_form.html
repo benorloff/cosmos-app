@@ -3,19 +3,14 @@
 {% block content %}
 
 <div class="container">
-
-	{% if object %}
-
-	<h1>Edit {{object.title}}</h1>
-
-	{% else %}
-
-	<h1>Create Viewing Party</h1>
-
-	{% endif %}
-
-	<div class="container">
-
+	<div class="row">
+		{% if object %}
+			<h1>Edit {{object.title}}</h1>
+		{% else %}
+			<h1>Create Viewing Party</h1>
+		{% endif %}
+	</div>
+	<div class="row">
 		<form action="" method="POST">
 			{% csrf_token %}
 			{{ form.non_field_errors }}
@@ -67,8 +62,6 @@
 </div>
 
 <script>
-
-
 	const startDateEl = document.getElementById('id_start_date');
 	M.Datepicker.init(startDateEl, {
 		format: 'yyyy-mm-dd',
@@ -76,7 +69,6 @@
 		setDefaultDate: true,
 		autoClose: true
 	})
-
     const endDateEl = document.getElementById('id_end_date');
 	M.Datepicker.init(endDateEl, {
 		format: 'yyyy-mm-dd',
@@ -84,19 +76,16 @@
 		setDefaultDate: true,
 		autoClose: true
 	})
-
 	const startTimeEl = document.getElementById('id_start_time');
 	M.Timepicker.init(startTimeEl, {
 		autoClose: true,
 		twelveHour: false
 	})
-
     const endTimeEl = document.getElementById('id_end_time');
 	M.Timepicker.init(endTimeEl, {
 		autoClose: true,
 		twelveHour: false
 	})
-
 	const eventEl = document.getElementById('id_event');
 	M.FormSelect.init(eventEl)
 </script>
