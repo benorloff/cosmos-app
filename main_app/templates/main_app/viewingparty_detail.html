@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
 <div class="container">
 
     <h1>{{ viewingparty.name }} </h1>
@@ -9,12 +8,12 @@
     {% if user in viewingparty.attendees.all %}
     <form method="post" action="{% url 'parties_remove_attendee' viewingparty.id %}">
         {% csrf_token %}
-    <button>Unattend</button>
+    <button class="btn">Unattend</button>
     </form>
     {% else %}
     <form method="post" action="{% url 'parties_add_attendee' viewingparty.id %}">
         {% csrf_token %}
-    <button>Attend</button>
+    <button class="btn">Attend</button>
     </form>
     {% endif %}
     {% endif %}

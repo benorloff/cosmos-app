@@ -2,13 +2,31 @@
 
 {% block content %}
 
-<div id='map' style='width: 100%; height: 300px;'></div>
-
+    <style>
+        .geocoder {
+        
+        z-index: 1;
+        width: 50%;
+        left: 2%;
+        top: 10px;
+        bottom: 10px;
+        }
+        .mapboxgl-ctrl-geocoder {
+        margin-top: -100px;
+        width: 250px;
+        }
+    </style>
+    <div id='map' style='width: 100%; height: 300px;'></div>
+    <div id="geocoder" class="geocoder"></div>
 <script>
+
     mapboxgl.accessToken = "{{ mapbox_api }}";
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mayapapaya7/cl2sekhwr000115nt1ecumz5b'
+    const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mayapapaya7/cl2sekhwr000115nt1ecumz5b',
+    center: [-96, 37.8],
+    zoom: 2.5,
+    renderWorldCopies: false,
     });
 
     const geocoder = new MapboxGeocoder({
@@ -19,26 +37,47 @@
     });
 
     // Add the geocoder to the map
-    map.addControl(geocoder);
+    document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
 
-    const party_locations = {
-        "type": "FeatureCollection",
-        "features": "{{geo_request_list}}"
-    }
+        // add markers to map
+        for (const feature of geojson.features) {
+        // create a HTML element for each feature
+        const el = document.createElement('div');
+        el.className = 'marker';
         
-    map.on('load', () => {
-    /* Add the data to your map as a layer */
-        map.addLayer({
-            id: 'locations',
-            type: 'circle',
-            /* Add a GeoJSON source containing place coordinates and information. */
-            source: {
-            type: 'geojson',
-            data: party_locations
-            }
-        });
-    });
+        // make a marker for each feature and add it to the map
+        new mapboxgl.Marker(el)
+        .setLngLat(feature.geometry.coordinates)
+        .setPopup(
+        new mapboxgl.Popup({ offset: 25 }) // add popups
+        .setHTML(
+        `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+        )
+        )
+        .addTo(map);
+        }
+
+    // const party_locations = {
+    // "type": "FeatureCollection",
+    // "features": "{{geo_request_list}}"
+    // }
+        
+    // map.on('load', () => {
+    // /* Add the data to your map as a layer */
+    // map.addLayer({
+    //     id: 'locations',
+    //     type: 'circle',
+    //     /* Add a GeoJSON source containing place coordinates and information. */
+    //     source: {
+    //     type: 'geojson',
+    //     data: GEOJSON
+    //     }
+    // });
+    // });
+
+
+
 </script>
 
 <div class="container">
