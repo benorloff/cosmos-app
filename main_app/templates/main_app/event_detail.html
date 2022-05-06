@@ -7,20 +7,6 @@
 
 
   <h1>Cosmic Events Details</h1>
-  {% if user.is_authenticated %}
-  {% if user in event.users_watching.all %}
-  <form method="post" action="{% url 'events_watchlistremove' event.id %}">
-      {% csrf_token %}
-    <button>Remove from Watchlist</button>
-  </form>
-  {% else %}
-  <form method="post" action="{% url 'events_watchlist' event.id %}">
-      {% csrf_token %}
-    <button>Add to Watchlist</button>
-  </form>
-  {% endif %}
-  {% endif %}
-
 
   <!-- BEGIN MAIN EVENT CARD -->
 
