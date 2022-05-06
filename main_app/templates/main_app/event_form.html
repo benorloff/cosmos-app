@@ -9,17 +9,9 @@
 <h1>Add Cosmic Event</h1>
 {% endif %}
 
-{% if event.id != True %}
-<form action="{% url 'events_create'%}" method="POST">
-	{% csrf_token %}
-	<table>
-		<!-- <input type="text" id="id_start_time"> -->
-		{{ form.as_table }}
+{% if object %}
 
-	</table>
-	<input type="submit" value="submit" class="btn" />
-</form>
-{% else %}
+
 <img src="{{ photo.url }}" class="responsive-img z-depth-2">
 <!-- Leaving the action blank will use the same url that was used in order to get the form -->
 <form action="{% url 'events_update' event.id %}" method="POST">
@@ -43,6 +35,16 @@
 		{% csrf_token %}
 	<input type="submit" class="btn" value="Delete Photo">
 	</form>
+{% else %}
+<form action="{% url 'events_create'%}" method="POST">
+	{% csrf_token %}
+	<table>
+		<!-- <input type="text" id="id_start_time"> -->
+		{{ form.as_table }}
+
+	</table>
+	<input type="submit" value="submit" class="btn" />
+</form>
 {% endif %}
 
 <script>
