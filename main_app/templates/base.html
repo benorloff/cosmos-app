@@ -39,9 +39,9 @@
 				<ul class="right">
                     {% if user.is_authenticated %}
                     <ul id="dropdown" class="dropdown-content">
-                        <li><a href="{% url 'users_detail' user.id %}">My Profile</a></li>
-                        <li><a href="{% url 'users_detail' user.id %}#my-events">My Events</a></li>
-                        <li><a href="{% url 'users_detail' user.id %}#my-parties">My Viewing Parties</a></li>
+                        <li><a href="{% url 'users_detail' request.user.id %}">My Profile</a></li>
+                        <li><a href="{% url 'users_detail' request.user.id %}#my-events">My Events</a></li>
+                        <li><a href="{% url 'users_detail' request.user.id %}#my-parties">My Viewing Parties</a></li>
 						<li class="divider"></li> 
 						<li><a href="{% url 'events_create' %}">Add Cosmic Events</a></li>
                         <li><a href="{% url 'parties_create' %}">Add Parties</a></li>
@@ -51,8 +51,6 @@
                     <ul class="dds">
                         <li><a href="{% url 'parties_list' %}">Viewing Parties</a></li>
                         <li><a href="{% url 'events_list' %}">Cosmic Events</a></li>
-                        <li><a href="{% url 'events_create' %}">Add Cosmic Events</a></li>
-                        <li><a href="{% url 'parties_create' %}">Add Parties</a></li>
                         <li><a class="dropdown-trigger" data-target="dropdown">Profile</a></li>
                     </ul>
 

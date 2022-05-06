@@ -49,7 +49,7 @@
             <div class="row">
               <p>{{ event.description }}</p>
               <br>
-              <p><i class="tiny material-icons">person</i> Created By: {{ event.created_by }}
+              <p><i class="tiny material-icons">person</i> Created By: <a href="{% url 'users_detail' event.created_by.id %}">{{ event.created_by }}</a>
               {% if user == event.created_by %}
 
                   <a href="{% url 'events_update' event.id %}">Edit</a>
