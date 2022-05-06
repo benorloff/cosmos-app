@@ -13,8 +13,6 @@ They can “watch” an event or attend a party if they log in or sign up for an
 ![COS_signUp](https://images.squarespace-cdn.com/content/v1/5942c7c820099e1dd1e2f0b1/1651844831562-VGT0WZQ69F6PQAOHP5FW/Screen+Shot+2022-05-06+at+9.19.12+AM.png?format=2500w)
 
 ![COS_profile](https://images.squarespace-cdn.com/content/v1/5942c7c820099e1dd1e2f0b1/1651844830297-8DT72BM2O42FIMR4FGVF/Screen+Shot+2022-05-06+at+9.11.38+AM.png?format=2500w) 
-
-(create party or event image)
  
 The Mapbox API was used to create location search functionality of user-generated Viewing Parties. Users can type their address into the search bar to find parties near them. They can also add their own parties, publicly visible to other users who can opt to attend.
 
@@ -35,7 +33,9 @@ Python3, Django, JavaScript HTML, CSS, PSQL, Materialize
 API integrations: MapBox, NASA
 
 # Next Steps
-- Our team was ambitious and there were so many possibilities with this app, so there are also several things we wished we could do that we may still implement in the future. Those items include:
+Our team was ambitious and there were so many possibilities with this app, so there are also several things we wished we could do that we may still implement in the future. 
+
+Those items include:
 - Styling adjustments to make the site more sleek and enhance the user experience
 - Search functionality for finding events and parties
 - ‘Follow’ functionality so that users can follow other user accounts
