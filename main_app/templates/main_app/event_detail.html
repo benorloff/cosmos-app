@@ -22,8 +22,21 @@
 
   <form method="post" action="{% url 'parties_create' %}">
     {% csrf_token %}
+<<<<<<< HEAD
   <button>Creating Viewing Party</button>
   </form>
+=======
+   <button class="waves-effect waves-light btn">Remove from Watchlist</button>
+</div>   
+</form>
+{% else %}
+<form method="post" action="{% url 'events_watchlist' event.id %}">
+    {% csrf_token %}
+   <button class="waves-effect waves-light btn">Add to Watchlist</button>
+</form>
+{% endif %}
+{% endif %}
+>>>>>>> ba442b5 (button styles reviewed and updated)
 
   {% endif %}
 
