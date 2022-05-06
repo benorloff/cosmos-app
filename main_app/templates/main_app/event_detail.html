@@ -77,7 +77,7 @@
         <a href="{% url 'parties_detail' party.id %}">
             <div class="card z-depth-2">
                 <div class="card-image">
-                    <img src="" height="200px" style="background-color: black;">
+                    <img src="https://images.pexels.com/photos/4644812/pexels-photo-4644812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" height="200px" style="background-color: black;">
                     <span class="card-title">{{ party.name }}</span>
                     {% if user in party.attendees.all %}
                         <a href="{% url 'parties_remove_attendee' party.id %}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">person_remove</i></a>
