@@ -132,9 +132,8 @@ class EventDetail(DetailView):
         try:
           photo = Photo.objects.get(event=self.get_object())
           context['photo'] = photo
-          print(photo)
         except:
-          print('no photo')
+          context['photo'] = False
         return context
 
 class EventCreate(LoginRequiredMixin, CreateView):
@@ -250,6 +249,7 @@ def add_event_photo(request, event_id):
         # print(request.event)
         event = Event.objects.get(id=event_id)
         Photo.objects.create(url=url, event=event)
+        event.photo_url = url;
     except:
         print('An error occurred uploading file to S3')
 

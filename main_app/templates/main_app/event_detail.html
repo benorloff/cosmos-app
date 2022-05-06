@@ -13,7 +13,11 @@
       <div class="col s12 m6">
         <div class="card x-large" style="width:auto">
           <div class="card-image">
+            {% if photo != False %}
+            <img src="{{photo.url}}" style="background-color:black;height:100%;width:100%;object-fit: contain;">
+            {% else %}
             <img src="https://images.pexels.com/photos/4644812/pexels-photo-4644812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="background-color:black;height:100%;width:100%;object-fit: contain;">
+            {% endif %}
             
             {% if user in event.users_watching.all %}
             <form method="POST" action="{% url 'events_watchlistremove' event.id %}">
