@@ -3,11 +3,9 @@
 {% load static %}
 
 {% block content %}
-<div style="background-image: url({% static '/img/space_pic.jpeg' %}); width: 100%; height: 250px; background-size: cover; background-position: bottom; position: relative; z-index: -1;">
-    <div style="position: absolute; bottom: 20px; right: 20px;">
-        <button class="btn">Follow</button>
-    </div>
-</div>
+<div style="background-image: url({% static '/img/space_pic.jpeg' %}); width: 100%; height: 250px; background-size: cover; background-position: bottom; position: relative; z-index: -1;"></div>
+
+<div class="container">
 
 <div class="row">
 
@@ -21,10 +19,25 @@
         <div>
             <h3>{{ object.first_name }} {{ object.last_name }}</h3>
             <p>@{{ object.username }}</p>
+            <div class="row">
+                {% if request.user in profile.followers.all %}
+                    <form method="POST" action="{% url 'user_unfollow' user.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <button type="submit" class="btn red">Unfollow</button>
+                    </form>
+                {% else %}
+                    <form method="POST" action="{% url 'user_follow' user.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <button type="submit" class="btn">Follow</button>
+                    </form>
+                {% endif %}
+            </div>
             <div class="divider"></div>
             <div class="row" style="padding: 25px 0 25px 0; margin-bottom: 0;">
                 <div class="col s6">
-                    5k Followers
+                    {{ profile.followers.all|length }}
                 </div>
                 <div class="col s6">
                     User Avatars
@@ -127,9 +140,9 @@
                 {% endif %}
             {% endif %}
 
-        </div>
-            
+        </div>      
     </div>
+</div>
 </div>
 
 {% endblock content %}
