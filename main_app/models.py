@@ -49,6 +49,7 @@ class Profile(models.Model):
     city = models.CharField(max_length=50, blank=True)
     bio = models.CharField(max_length=500, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    followers = models.ManyToManyField(User, related_name='user_followers')
 
     def __str__(self):
         return f"This is the profile of {self.user}"

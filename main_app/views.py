@@ -102,6 +102,9 @@ class UserUpdate(LoginRequiredMixin, UpdateView):
   model = User
   fields = ['username', 'email', 'first_name', 'last_name']
 
+def user_follow(request):
+  pass
+
 class EventList(ListView):
     model = Event
     paginate_by = 50
