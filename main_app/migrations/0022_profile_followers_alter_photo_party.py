@@ -13,11 +13,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='profile',
-            name='followers',
-            field=models.ManyToManyField(related_name='user_followers', to=settings.AUTH_USER_MODEL),
-        ),
         migrations.AlterField(
             model_name='photo',
             name='party',
