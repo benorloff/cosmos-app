@@ -76,9 +76,9 @@ class ViewingParty(models.Model):
 
 class Photo(models.Model):
     url = models.CharField(max_length=255)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True)
-    party = models.OneToOneField(ViewingParty, on_delete=models.CASCADE, null=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True, blank=True)
+    party = models.OneToOneField(ViewingParty, on_delete=models.CASCADE, null=True, blank=True)
     
     def __str__(self):
         return f"Photo at {self.url}"
