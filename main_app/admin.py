@@ -29,6 +29,7 @@ class EventAdmin(ImportExportMixin, admin.ModelAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
+admin.site.register(Profile)
 admin.site.register(Event, EventAdmin)
 admin.site.register(ViewingParty)
 admin.site.register(Photo)
