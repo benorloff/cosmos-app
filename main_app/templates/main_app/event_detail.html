@@ -30,7 +30,6 @@
 
   {% endif %}
 
-
   <!-- BEGIN MAIN EVENT CARD -->
 
       <div class="col s12 m6">
@@ -71,8 +70,13 @@
             </div>
               <p><i class="tiny material-icons"></i>{{ event.description }}</p>
               <br>
-              <p><i class="tiny material-icons">person</i> Created By: {{ event.created_by }}</p>
-          
+              <p><i class="tiny material-icons">person</i> Created By: {{ event.created_by }}
+              {% if user == event.created_by %}
+
+                  <a href="{% url 'events_update' event.id %}">Edit</a>
+
+              {% endif %}
+                </p>
           </div>
       </div>
 
@@ -117,13 +121,7 @@
 
 
   <!-- add edit button below -->
-  {% if user == event.created_by %}
-  <div class="card-action">
-      <a href="{% url 'events_update' event.id %}">Edit</a>
-  </div>
 
-
-  {% endif %}
 
 </div>
 

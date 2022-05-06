@@ -19,7 +19,7 @@
             {% endif %}
             <div class="col s8"><h3>Update Profile</h3></div>
         </div>
-    
+    <div class="row">
         <form method="post" action="{% url 'profile' %}" class="row">
             {% csrf_token %}
             {{ user_form.as_p}}
@@ -27,7 +27,8 @@
 
             <input type="submit" class="btn" value="Save Changes">
         </form>
-
+        <a class="btn" href="/users/{{user.id}}">View Profile</a>
+    </div>
     {% if photo.profile.id == Null %}
         <form action="{% url 'add_profile_photo' %}" enctype="multipart/form-data" method="POST" class="card-panel">
         {% csrf_token %}
