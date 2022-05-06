@@ -9,7 +9,7 @@
 <div class="row">
 <form method="post" action="{% url 'events_watchlistremove' event.id %}">
     {% csrf_token %}
-   <button>Remove from Watchlist</button>
+   <button class="waves-effect waves-light btn">Remove from Watchlist</button>
 </div>   
 </form>
 {% else %}
