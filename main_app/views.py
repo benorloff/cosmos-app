@@ -102,8 +102,37 @@ class UserUpdate(LoginRequiredMixin, UpdateView):
   model = User
   fields = ['username', 'email', 'first_name', 'last_name']
 
-def user_follow(request):
-  pass
+def user_follow(request, user_id):
+  follower = User.objects.get(id=request.user.id)
+  user = User.objects.get(id=user_id)
+  profile = Profile.objects.get(user=user_id)
+  print(follower, 'new function')
+  print(user, 'new function')
+  print(profile, 'new function')
+  try:
+    profile.followers.add(follower)
+    print('follower added successfully')
+    next = request.POST.get('next', '/')
+  except:
+    print('error adding follower')
+
+  return HttpResponseRedirect(next)
+
+def user_unfollow(request, user_id):
+  follower = User.objects.get(id=request.user.id)
+  user = User.objects.get(id=user_id)
+  profile = Profile.objects.get(user=user_id)
+  print(follower, 'new function')
+  print(user, 'new function')
+  print(profile, 'new function')
+  try:
+    profile.followers.remove(follower)
+    print('follower removed successfully')
+    next = request.POST.get('next', '/')
+  except:
+    print('error removing follower')
+
+  return HttpResponseRedirect(next)
 
 class EventList(ListView):
     model = Event
@@ -255,6 +284,7 @@ def add_event_photo(request, event_id):
 
     return redirect('events_list')
 
+@login_required
 def delete_event_photo (request, event_id):
   photo = Photo.objects.get(event=event_id)
   photo.event = None
