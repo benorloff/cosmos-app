@@ -38,7 +38,7 @@
 				<ul class="right">
                     {% if user.is_authenticated %}
                     <ul id="dropdown" class="dropdown-content">
-                        <li><a href="{% url 'profile' %}">My Profile</a></li>
+                        <li><a href="{% url 'users_detail' user.id %}">My Profile</a></li>
                         <li><a href="{% url 'users_detail' user.id %}#my-events">My Events</a></li>
                         <li><a href="{% url 'users_detail' user.id %}#my-parties">My Viewing Parties</a></li>
 						<li class="divider"></li> 
