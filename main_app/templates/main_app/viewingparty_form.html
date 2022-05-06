@@ -2,63 +2,69 @@
 
 {% block content %}
 
-{% if object %}
+<div class="container">
 
-<h1>Edit {{object.title}}</h1>
+	{% if object %}
 
-{% else %}
+	<h1>Edit {{object.title}}</h1>
 
-<h1>Create Viewing Party</h1>
+	{% else %}
 
-{% endif %}
+	<h1>Create Viewing Party</h1>
 
-<form action="" method="POST">
-	{% csrf_token %}
-	{{ form.non_field_errors }}
-	<div class="fieldWrapper">
-		{{ form.name.errors }}
-		<label for="{{ form.name.id_for_label }}">Name:</label>
-		{{ form.name }}
+	{% endif %}
+
+	<div class="container">
+
+		<form action="" method="POST">
+			{% csrf_token %}
+			{{ form.non_field_errors }}
+			<div class="fieldWrapper">
+				{{ form.name.errors }}
+				<label for="{{ form.name.id_for_label }}">Name:</label>
+				{{ form.name }}
+			</div>
+			<div class="fieldWrapper">
+				{{ form.party_location.errors }}
+				<label for="{{ form.party_location.id_for_label }}">Party Location:</label>
+				<mapbox-address-autofill access-token={{mapbox_api}}>			
+					<input type="text" name="party_location" maxlength="100" required="" id="id_party_location" autocomplete="street-address">
+				</mapbox-address-autofill>
+			</div>
+			<div class="fieldWrapper">
+				{{ form.start_date.errors }}
+				<label for="{{ form.start_date.id_for_label }}">Start Date:</label>
+				{{ form.start_date }}
+			</div>
+			<div class="fieldWrapper">
+				{{ form.start_time.errors }}
+				<label for="{{ form.start_time.id_for_label }}">Start Time:</label>
+				{{ form.start_time }}
+			</div>
+			<div class="fieldWrapper">
+				{{ form.end_date.errors }}
+				<label for="{{ form.end_date.id_for_label }}">End Date:</label>
+				{{ form.end_date }}
+			</div>
+			<div class="fieldWrapper">
+				{{ form.end_time.errors }}
+				<label for="{{ form.end_time.id_for_label }}">End Time:</label>
+				{{ form.end_time }}
+			</div>
+			<div class="fieldWrapper">
+				{{ form.description.errors }}
+				<label for="{{ form.description.id_for_label }}">Description:</label>
+				{{ form.description }}
+			</div>
+			<div class="fieldWrapper">
+				{{ form.event.errors }}
+				<label for="{{ form.event.id_for_label }}">Event:</label>
+				{{ form.event }}
+			</div>
+			<input type="submit" value="submit" class="btn" />
+		</form>
 	</div>
-	<div class="fieldWrapper">
-		{{ form.party_location.errors }}
-		<label for="{{ form.party_location.id_for_label }}">Party Location:</label>
-		<mapbox-address-autofill access-token={{mapbox_api}}>			
-			<input type="text" name="party_location" maxlength="100" required="" id="id_party_location" autocomplete="street-address">
-		</mapbox-address-autofill>
-	</div>
-	<div class="fieldWrapper">
-		{{ form.start_date.errors }}
-		<label for="{{ form.start_date.id_for_label }}">Start Date:</label>
-		{{ form.start_date }}
-	</div>
-	<div class="fieldWrapper">
-		{{ form.start_time.errors }}
-		<label for="{{ form.start_time.id_for_label }}">Start Time:</label>
-		{{ form.start_time }}
-	</div>
-	<div class="fieldWrapper">
-		{{ form.end_date.errors }}
-		<label for="{{ form.end_date.id_for_label }}">End Date:</label>
-		{{ form.end_date }}
-	</div>
-	<div class="fieldWrapper">
-		{{ form.end_time.errors }}
-		<label for="{{ form.end_time.id_for_label }}">End Time:</label>
-		{{ form.end_time }}
-	</div>
-	<div class="fieldWrapper">
-		{{ form.description.errors }}
-		<label for="{{ form.description.id_for_label }}">Description:</label>
-		{{ form.description }}
-	</div>
-	<div class="fieldWrapper">
-		{{ form.event.errors }}
-		<label for="{{ form.event.id_for_label }}">Event:</label>
-		{{ form.event }}
-	</div>
-	<input type="submit" value="submit" class="btn" />
-</form>
+</div>
 
 <script>
 

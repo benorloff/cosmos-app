@@ -66,6 +66,16 @@
 	<footer class="page-footer black">
 		<div class="right">All Rights Reserved, &copy; 2022 Cosmos &nbsp;</div>
 	</footer>
+	<script>
+		const filterEls = document.querySelectorAll('.dropdown-trigger');
+ 		const tooltipEls = document.querySelectorAll('.tooltipped');
+		M.Dropdown.init(filterEls, {
+			alignment: 'bottom',
+			coverTrigger: false,
+			constrainWidth: true
+		});
+		M.Tooltip.init(tooltipEls);
+	</script>
 </body> 
 </html>
 
