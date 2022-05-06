@@ -10,10 +10,6 @@
 {% endif %}
 
 {% if object %}
-
-
-
-
 {% if photo.event.id == Null %}
 <form action="{% url 'add_event_photo' event.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
 	{% csrf_token %}
@@ -41,7 +37,7 @@
 
 {% else %}
 
-<form action="{% url 'events_create'%}" method="POST">
+<form action="" method="POST">
 	{% csrf_token %}
 	<table>
 		<!-- <input type="text" id="id_start_time"> -->
