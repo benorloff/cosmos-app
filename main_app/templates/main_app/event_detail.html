@@ -6,31 +6,16 @@
   <div class="row">
     <h1>Cosmic Event Details</h1>
   </div>
-  <div class="row">
-    {% if user.is_authenticated %}
-      {% if user in event.users_watching.all %}
-        <form method="post" action="{% url 'events_watchlistremove' event.id %}">
-            {% csrf_token %}
-          <button class="btn left" style="margin-right: 25px;">Remove from Watchlist</button>
-        </form>
-      {% else %}
-        <form method="post" action="{% url 'events_watchlist' event.id %}">
-            {% csrf_token %}
-          <button class="btn left" style="margin-right: 25px;">Add to Watchlist</button>
-        </form>
-      {% endif %}
-      <form method="post" action="{% url 'parties_create' %}">
-        {% csrf_token %}
-        <button class="btn">Creating Viewing Party</button>
-      </form>
-    {% endif %}
-  </div>
   <!-- BEGIN MAIN EVENT CARD -->
   <div class="row">
       <div class="col s12">
         <div class="card x-large" style="width:auto">
           <div class="card-image">
+            {% if photo != False %}
+            <img src="{{photo.url}}" style="background-color:black;height:100%;width:100%;object-fit: contain;">
+            {% else %}
             <img src="https://images.pexels.com/photos/4644812/pexels-photo-4644812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="background-color:black;height:100%;width:100%;object-fit: contain;">
+            {% endif %}
             
             {% if user in event.users_watching.all %}
               <form method="POST" action="{% url 'events_watchlistremove' event.id %}">
@@ -64,8 +49,13 @@
             <div class="row">
               <p>{{ event.description }}</p>
               <br>
-              <p><i class="tiny material-icons">person</i> Created By: {{ event.created_by }}</p>
-            </div>
+              <p><i class="tiny material-icons">person</i> Created By: {{ event.created_by }}
+              {% if user == event.created_by %}
+
+                  <a href="{% url 'events_update' event.id %}">Edit</a>
+
+              {% endif %}
+              </p>
           </div>
         </div>
     </div>
@@ -113,11 +103,12 @@
 
 
   <!-- add edit button below -->
-  {% if user == event.created_by %}
-    <div class="card-action">
-        <a href="{% url 'events_update' event.id %}">Edit</a>
-    </div>
+  {% if user %}
 
+  <form method="post" action="{% url 'parties_create' %}">
+    {% csrf_token %}
+  <button class="btn">Create Viewing Party</button>
+  </form>
 
   {% endif %}
 
