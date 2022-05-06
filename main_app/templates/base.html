@@ -34,14 +34,18 @@
 			<div class="nav-wrapper black">
 				<ul>
 					<!-- <li><img src="../static/img/space_icon.png" width="40px"></li> -->
-					<li><a href="/" class="left brand-logo">&nbsp;&nbsp;🚀Cosmos</a></li>
+					<li><a href="/" class="left brand-logo">&nbsp;&nbsp;🚀 Cosmos</a></li>
 				</ul>
 				<ul class="right">
                     {% if user.is_authenticated %}
                     <ul id="dropdown" class="dropdown-content">
-                        <li><a href="{% url 'profile' %}">My Profile</a></li> 
+                        <li><a href="{% url 'users_detail' user.id %}">My Profile</a></li>
                         <li><a href="{% url 'users_detail' user.id %}#my-events">My Events</a></li>
                         <li><a href="{% url 'users_detail' user.id %}#my-parties">My Viewing Parties</a></li>
+						<li class="divider"></li> 
+						<li><a href="{% url 'events_create' %}">Add Cosmic Events</a></li>
+                        <li><a href="{% url 'parties_create' %}">Add Parties</a></li>
+						<li class="divider"></li> 
                         <li><a href="{% url 'account_logout' %}">Log Out</a></li>
                     </ul>
                     <ul class="dds">
@@ -66,8 +70,21 @@
 		{% block content %}
 		{% endblock %}
 	</main>
-	<footer class="page-footer black">
-		<div class="right">All Rights Reserved, &copy; 2022 Cosmos &nbsp;</div>
+	<footer class="page-footer" style="background-color: #111111;">
+		<div class="container">
+		  <div class="row">
+			<div class="col s12 center-align">
+			  <h5 class="white-text">🚀 Cosmos</h5>
+			  <p class="grey-text text-lighten-4">A centralized place for all things space. It's an amazing universe out there, don't forget to enjoy it.</p>
+			</div>
+		  </div>
+		</div>
+		<div class="footer-copyright black">
+		  <div class="container">
+		  © 2022 Cosmos. All Rights Reserved.
+		  <a class="grey-text text-lighten-4 right" href="#!">Privacy</a>
+		  </div>
+		</div>
 	</footer>
 
 	<script>

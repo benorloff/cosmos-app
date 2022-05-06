@@ -3,14 +3,12 @@
 
 <div class="container">
 
-
-
-
-  <h1>Cosmic Events Details</h1>
-
+  <div class="row">
+    <h1>Cosmic Event Details</h1>
+  </div>
   <!-- BEGIN MAIN EVENT CARD -->
-
-      <div class="col s12 m6">
+  <div class="row">
+      <div class="col s12">
         <div class="card x-large" style="width:auto">
           <div class="card-image">
             {% if photo != False %}
@@ -20,37 +18,36 @@
             {% endif %}
             
             {% if user in event.users_watching.all %}
-            <form method="POST" action="{% url 'events_watchlistremove' event.id %}">
-              {% csrf_token %}
-              <input type="hidden" name="next" value="{{ request.path }}">
-              <button type="submit" onclick="M.toast({html: 'Event removed from watchlist.'})" class="btn-floating halfway-fab waves-effect waves-light red tooltipped" data-position="left" data-tooltip="Remove from Watchlist"><i class="material-icons md-24">visibility_off</i></button>
-            </form>
-          {% else %}
-            <form method="POST" action="{% url 'events_watchlist' event.id %}">
-              {% csrf_token %}
-              <input type="hidden" name="next" value="{{ request.path }}">
-              <button type="submit" onclick="M.toast({html: 'Event added to watchlist.'})" class="btn-floating pulse halfway-fab waves-effect waves-light blue tooltipped" data-position="left" data-tooltip="Add to Watchlist"><i class="material-icons md-24">visibility</i></button>
-            </form>
-          {% endif %}          
-          <span class="card-title"><h3>{{ event.title }}</h3></span>
+              <form method="POST" action="{% url 'events_watchlistremove' event.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <button type="submit" onclick="M.toast({html: 'Event removed from watchlist.'})" class="btn-floating halfway-fab waves-effect waves-light red tooltipped" data-position="left" data-tooltip="Remove from Watchlist"><i class="material-icons md-24">visibility_off</i></button>
+              </form>
+            {% else %}
+              <form method="POST" action="{% url 'events_watchlist' event.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <button type="submit" onclick="M.toast({html: 'Event added to watchlist.'})" class="btn-floating pulse halfway-fab waves-effect waves-light blue tooltipped" data-position="left" data-tooltip="Add to Watchlist"><i class="material-icons md-24">visibility</i></button>
+              </form>
+            {% endif %}          
+            <span class="card-title"><h3>{{ event.title }}</h3></span>
           </div>
           
           <div class="card-content">
             <div class="row">
               <div class="col s6">
-              <p><i class="tiny material-icons">place</i> Location: {{ event.location }}</p>
-              <p><i class="tiny material-icons">rocket</i> Type: {{ event.event_type }}</p>
-              <p><i class="tiny material-icons">visibility</i> Event Watchers: {{ event.users_watching.all|length }}</p>
-            </div>
-            <div class="col s6">
-              <p><i class="tiny material-icons">event</i> Start Date/Time: {{ event.start_date }} / {{ event.start_time }} </p>
-              <p><i class="tiny material-icons">event</i> End Date/Time: {{ event.end_date }} / {{ event.end_time }} </p>
-              <p><i class="tiny material-icons">event</i>Best Viewing Date/Time: {{ event.best_date }} / {{ event.best_time }} </p>
+                <p><i class="tiny material-icons">place</i> Location: {{ event.location }}</p>
+                <p><i class="tiny material-icons">rocket</i> Type: {{ event.event_type }}</p>
+                <p><i class="tiny material-icons">visibility</i> Event Watchers: {{ event.users_watching.all|length }}</p>
               </div>
-              <br>
-              <br>
+              <div class="col s6">
+                <p><i class="tiny material-icons">event</i> Start Date/Time: {{ event.start_date }} / {{ event.start_time }} </p>
+                <p><i class="tiny material-icons">event</i> End Date/Time: {{ event.end_date }} / {{ event.end_time }} </p>
+                <p><i class="tiny material-icons">event</i>Best Viewing Date/Time: {{ event.best_date }} / {{ event.best_time }} </p>
+              </div>
             </div>
-              <p><i class="tiny material-icons"></i>{{ event.description }}</p>
+            <div class="row">
+              <p>{{ event.description }}</p>
               <br>
               <p><i class="tiny material-icons">person</i> Created By: {{ event.created_by }}
               {% if user == event.created_by %}
@@ -58,16 +55,19 @@
                   <a href="{% url 'events_update' event.id %}">Edit</a>
 
               {% endif %}
-                </p>
+              </p>
           </div>
-      </div>
+        </div>
+    </div>
+  </div>
 
   <!-- END MAIN EVENT CARD -->
 
 
   <!-- BEGIN VIEWING PARTY CARDS -->
-
-  <h2>Viewing Parties</h2>
+  <div class="row">
+    <h2>Viewing Parties</h2>
+  </div>
 
   <div class="row">
 
