@@ -22,7 +22,13 @@
           <a href="{% url 'events_detail' event.id %}" style="color: black;">
             <div class="card z-depth-2">
               <div class="card-image">
-                <img src="https://images.pexels.com/photos/4644812/pexels-photo-4644812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" height="200px" style="background-color:black;">
+                {% if event.photo_set.all|length > 0 %}
+                  {% for photo in event.photo_set.all %}
+                    <img src="{{ photo.url }}" height="200px" style="background-color:black; background-size: cover; ">
+                  {% endfor %}
+                {% else %}
+                  <img src="https://images.pexels.com/photos/4644812/pexels-photo-4644812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" height="200px" style="background-color:black;">
+                {% endif %}
                 <div class="chip" style="position: absolute; top: 10px; left: 10px;">
                   {{ event.event_type }}
                 </div>
