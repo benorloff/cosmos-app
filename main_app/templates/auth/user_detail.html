@@ -106,7 +106,7 @@
 
         <div class="row" id="my-parties">
 
-            {% if user is object %}
+            {% if request.user == user %}
                 <h4 style="margin-top: 75px;">My Viewing Parties</h4>
                 {% if parties %}
                     {% for party in parties %}
