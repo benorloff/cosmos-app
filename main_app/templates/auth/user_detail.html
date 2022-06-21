@@ -96,7 +96,10 @@
                     </div>
                 {% endfor %}
             {% else %}
-                <p>There aren't add any Cosmic Events in your Watchlist. <a href="{% url 'events_list' %}">Find an event to watch.</a></p>
+                {% if request.user == user %}
+                    <p>There aren't add any Cosmic Events in your Watchlist. <a href="{% url 'events_list' %}">Find an event to watch.</a></p>
+                {% else %}
+                    <p>{{% object.username %}}
             {% endif %}
 
         </div>
