@@ -99,7 +99,7 @@
                 {% if request.user == user %}
                     <p>There aren't add any Cosmic Events in your Watchlist. <a href="{% url 'events_list' %}">Find an event to watch.</a></p>
                 {% else %}
-                    <p>{{% object.username %}}
+                    <p>@{{ object.username }} doesn't have any Cosmic Events in their Watchlist.</p>
             {% endif %}
 
         </div>
