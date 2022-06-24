@@ -34,7 +34,7 @@
 					<li><a href="/" class="left brand-logo">&nbsp;&nbsp;🚀 Cosmos</a></li>
 				</ul>
 				<ul class="right">
-                    {% if user.is_authenticated %}
+                    {% if request.user.is_authenticated %}
                     <ul id="dropdown" class="dropdown-content">
                         <li><a href="{% url 'users_detail' request.user.id %}">My Profile</a></li>
                         <li><a href="{% url 'users_detail' request.user.id %}#my-events">My Events</a></li>
