@@ -41,6 +41,11 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         return reverse('events_detail', kwargs={'pk': self.id})
+
+    @property
+    def is_archived(self):
+        return date.today() > self.end_date
+
     
 class Profile(models.Model):
     photo_url = models.CharField(max_length=255, blank=True)

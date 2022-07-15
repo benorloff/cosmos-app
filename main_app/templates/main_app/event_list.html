@@ -19,7 +19,7 @@
     {% for event in event_list %}
     <div class="col s12 m6 l4">
       <a href="{% url 'events_detail' event.id %}" style="color: black">
-        <div class="card z-depth-2">
+        <div class="card z-depth-2" {% if event.end_date and event.is_archived %} style="filter: grayscale(100%);" {% endif %}>
           <div class="card-image">
             {% if event.photo_set.all|length > 0 %} 
             {% for photo in event.photo_set.all %}
@@ -36,8 +36,15 @@
               style="background-color: black; object-fit: cover;"
             />
             {% endif %}
-            <div class="chip" style="position: absolute; top: 10px; left: 10px">
-              {{ event.event_type }}
+            <div style="position: absolute; top: 10px; left: 10px;">
+              <div class="chip" style="position: relative;">
+                {{ event.event_type }}
+              </div>
+              {% if event.end_date and event.is_archived %}
+              <div class="chip" style="position: relative;">
+                Archived
+              </div>
+              {% endif %}
             </div>
             {% if user in event.users_watching.all %}
             <form
