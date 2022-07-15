@@ -19,7 +19,7 @@
     {% for event in event_list %}
     <div class="col s12 m6 l4">
       <a href="{% url 'events_detail' event.id %}" style="color: black">
-        <div class="card z-depth-2" {% if event.end_date and event.is_archived %} style="filter: grayscale(100%);" {% endif %}>
+        <div class="card z-depth-2" {% if event.end_date and event.is_archived %} style="filter: grayscale(100%); background-color: #c3c3c3;" {% endif %}>
           <div class="card-image">
             {% if event.photo_set.all|length > 0 %} 
             {% for photo in event.photo_set.all %}
@@ -67,6 +67,15 @@
             <form method="POST" action="{% url 'events_watchlist' event.id %}">
               {% csrf_token %}
               <input type="hidden" name="next" value="{{ request.path }}" />
+              {% if event.end_date and event.is_archived %} 
+              <button
+                type="submit"
+                onclick="M.toast({html: 'Event added to watchlist.'})"
+                class="btn-floating halfway-fab waves-effect waves-light blue tooltipped"
+                data-position="left"
+                data-tooltip="Add to Watchlist"
+              >
+              {% else %}
               <button
                 type="submit"
                 onclick="M.toast({html: 'Event added to watchlist.'})"
@@ -74,6 +83,7 @@
                 data-position="left"
                 data-tooltip="Add to Watchlist"
               >
+              {% endif %}
                 <i class="material-icons md-24">visibility</i>
               </button>
             </form>
