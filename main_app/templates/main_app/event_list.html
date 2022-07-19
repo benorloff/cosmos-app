@@ -92,18 +92,19 @@
           <div class="card-content">
             <span class="card-title truncate">{{ event.title }}</span>
             <p class="truncate">
-              <i class="tiny material-icons" style="margin-right: 5px">place</i
-              >{{ event.location }}
+              <i class="tiny material-icons" style="margin-right: 5px">place</i>
+              {{ event.location }}
             </p>
             <p class="truncate">
-              <i class="tiny material-icons" style="margin-right: 5px">event</i
-              >{{ event.start_date }} {% if event.start_time %}@ {{
-              event.start_time }}{% endif %}
+              <i class="tiny material-icons" style="margin-right: 5px">event</i>
+              {{ event.start_date }} 
+              {% if event.start_time %}
+                @ {{ event.start_time }}
+              {% endif %}
             </p>
             <p class="truncate">
-              <i class="tiny material-icons" style="margin-right: 5px"
-                >visibility</i
-              >{{ event.users_watching.all|length}} Watching
+              <i class="tiny material-icons" style="margin-right: 5px">visibility</i>
+              {{ event.users_watching.all|length}} Watching
             </p>
           </div>
         </div>
