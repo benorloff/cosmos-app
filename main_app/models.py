@@ -17,6 +17,7 @@ TYPES = (
     ('SC', 'Spacecraft'),
 )
 
+
 class Event(models.Model):
     title = models.CharField(max_length=100)
     location = models.CharField(max_length=200)
@@ -27,9 +28,9 @@ class Event(models.Model):
     )
     start_date = models.DateField(auto_now=False, auto_now_add=False, null=True)
     start_time = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
-    end_date = models.DateField(auto_now=False, auto_now_add=False, null=True)   
+    end_date = models.DateField(auto_now=False, auto_now_add=False, null=True)
     end_time = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
-    best_date = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)   
+    best_date = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
     best_time = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
     has_party = models.BooleanField(default=False)
     description = models.CharField(max_length=1200)
@@ -46,7 +47,7 @@ class Event(models.Model):
     def is_archived(self):
         return date.today() > self.end_date
 
-    
+
 class Profile(models.Model):
     photo_url = models.CharField(max_length=255, blank=True)
     birthdate = models.DateField(auto_now=False, auto_now_add=False, null=True)
@@ -59,12 +60,13 @@ class Profile(models.Model):
     def __str__(self):
         return f"This is the profile of {self.user}"
 
+
 class ViewingParty(models.Model):
     name = models.CharField(max_length=100)
-    party_location = models.CharField(max_length=100)    
+    party_location = models.CharField(max_length=100)
     start_date = models.DateField(auto_now=False, auto_now_add=False, null=True)
     start_time = models.TimeField(auto_now=False, auto_now_add=False, null=True)
-    end_date = models.DateField(auto_now=False, auto_now_add=False, null=True)   
+    end_date = models.DateField(auto_now=False, auto_now_add=False, null=True)
     end_time = models.TimeField(auto_now=False, auto_now_add=False, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='party_created_by_user')
     description = models.CharField(max_length=500)
@@ -78,12 +80,11 @@ class ViewingParty(models.Model):
         return reverse('parties_detail', kwargs={'pk': self.id})
 
 
-
 class Photo(models.Model):
     url = models.CharField(max_length=255)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True, blank=True)
     party = models.OneToOneField(ViewingParty, on_delete=models.CASCADE, null=True, blank=True)
-    
+
     def __str__(self):
         return f"Photo at {self.url}"
