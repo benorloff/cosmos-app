@@ -17,6 +17,8 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
+from django_property_filter import PropertyFilterSet
+
 
 load_dotenv()
 
@@ -29,8 +31,7 @@ MAPBOX_API = str(os.getenv('MAPBOX_API'))
 
 
 def home(request):
-    data = requests.get(
-        f'https://api.nasa.gov/planetary/apod?api_key={NASA_API}').text
+    data = requests.get(f'https://api.nasa.gov/planetary/apod?api_key={NASA_API}').text
     converted_data = json.loads(data)
     url = converted_data['url']
     events = Event.objects.order_by('users_watching')[:6]
@@ -137,25 +138,32 @@ def user_unfollow(request, user_id):
     return HttpResponseRedirect(next)
 
 
-class EventList(ListView):
+class EventList(ListView, PropertyFilterSet):
     model = Event
     paginate_by = 50
+
+    class Meta:
+        property_fields = ('is_archived', PropertyFilterSet, 'exact')
 
     def get_queryset(self):
         order = self.request.GET.get('orderby', 'start_date')
         if order == 'name':
             new_context = Event.objects.order_by(Lower(order))
-            archived = Event.objects.filter(Event__is_archived=True)
         else:
             new_context = Event.objects.order_by(order)
-            archived = Event.objects.filter(Event__is_archived=True)
 
-        return new_context, archived
+        return new_context
 
     def get_context_data(self, **kwargs):
         context = super(EventList, self).get_context_data(**kwargs)
         context['orderby'] = self.request.GET.get('orderby', 'start_date')
         return context
+
+
+# class EventListFilterSet(PropertyFilterSet):
+#     class Meta:
+#         model = Event
+#         property_fields = ('is_archived', PropertyFilterSet, 'exact')
 
 
 class EventDetail(DetailView):
