@@ -1,5 +1,6 @@
 from .models import Event, ViewingParty, Profile, Photo, User
-from .forms import UpdateUserForm, UpdateProfileForm
+from .forms import EventCreateForm, UpdateUserForm, UpdateProfileForm
+from django import forms
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -147,22 +148,27 @@ class EventList(ListView, PropertyFilterSet):
 
     def get_queryset(self):
         order = self.request.GET.get('orderby', 'start_date')
+        # archived = self.request.GET.get('filter', 'is_archived')
         if order == 'name':
             new_context = Event.objects.order_by(Lower(order))
+            # new_context = Event.objects.order_by(Lower(order)).filter(archived, Event.objects)
         else:
             new_context = Event.objects.order_by(order)
+            # new_context = Event.objects.order_by(order).filter(archived, Event.objects)
 
         return new_context
 
     def get_context_data(self, **kwargs):
         context = super(EventList, self).get_context_data(**kwargs)
         context['orderby'] = self.request.GET.get('orderby', 'start_date')
+        # context['archived'] = self.request.GET.get('filter', 'is_archived')
         return context
 
 
 # class EventListFilterSet(PropertyFilterSet):
 #     class Meta:
 #         model = Event
+#         fields = '__all__'
 #         property_fields = ('is_archived', PropertyFilterSet, 'exact')
 
 
@@ -184,9 +190,8 @@ class EventDetail(DetailView):
 
 
 class EventCreate(LoginRequiredMixin, CreateView):
+    form_class = EventCreateForm
     model = Event
-    fields = ['title', 'location', 'event_type', 'start_date', 'start_time',
-              'end_date', 'end_time', 'best_date', 'best_time', 'description']
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user

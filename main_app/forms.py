@@ -1,7 +1,8 @@
+# from multiprocessing import Event
 from django import forms
 
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Event
 
 class UpdateUserForm(forms.ModelForm):
     username = forms.CharField(max_length=100, required=True)
@@ -19,3 +20,20 @@ class UpdateProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['bio', 'city', 'birthdate']
+
+class EventCreateForm(forms.ModelForm):
+
+    def clean(self):
+        cleaned_data = super(EventCreateForm, self).clean()
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+
+        if end_date <= start_date:
+            raise forms.ValidationError("End date must be later than start date")
+
+        return cleaned_data
+
+    class Meta:
+        model = Event
+        fields = ['title', 'location', 'event_type', 'start_date', 'start_time', 'end_date', 'end_time', 'best_date', 'best_time', 'description']
+
