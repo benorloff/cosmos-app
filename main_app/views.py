@@ -139,12 +139,12 @@ def user_unfollow(request, user_id):
     return HttpResponseRedirect(next)
 
 
-class EventList(ListView, PropertyFilterSet):
+class EventList(ListView):
     model = Event
     paginate_by = 50
 
-    class Meta:
-        property_fields = ('is_archived', PropertyFilterSet, 'exact')
+    # class Meta:
+    #     property_fields = ('is_archived', PropertyFilterSet, 'exact')
 
     def get_queryset(self):
         order = self.request.GET.get('orderby', 'start_date')
