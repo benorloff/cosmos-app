@@ -18,7 +18,7 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
-from django_property_filter import PropertyFilterSet
+# from django_property_filter import PropertyFilterSet
 
 
 load_dotenv()

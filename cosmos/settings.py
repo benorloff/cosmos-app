@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'import_export',
-    'django_property_filter',
+    # 'django_property_filter',
 ]
 
 SITE_ID = 1
