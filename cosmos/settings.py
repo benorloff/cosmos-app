@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-import django_heroku
 from pathlib import Path
 import os
 from dotenv import load_dotenv
@@ -176,5 +175,3 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Configure Django App for Heroku.
-django_heroku.settings(locals())
